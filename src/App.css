@@ -1,38 +1,117 @@
-.App {
-  text-align: center;
+body {
+    background-color: blanchedalmond;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.custom-btn {
+    position: relative;
+    border-radius: 8px;
+    padding: 10px 25px;
+    font-weight: 600;
+    border: 0;
+    background-color: #f8d59f;
+}
+.custom-btn:hover {
+    cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ticket-list {
+    padding: 5%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.ticket-form {
+    padding: 3% 25%;
 }
 
-.App-link {
-  color: #61dafb;
+.ticket-list .ticket:not(:last-of-type){
+    margin-bottom: 25px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ticket {
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 13fr 1fr;
+    column-gap: 25px;
+}
+
+.ticket .col:last-child {
+    display: flex;
+    align-items: center;
+}
+
+.votes {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.voting-btn {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    background-color: #F2F4FF;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 7px 15px;
+}
+
+.voting-btn.upvote {
+    color: cornflowerblue;
+    margin-bottom: 12px;
+}
+
+.voting-btn.downvote {
+    flex-direction: column-reverse;
+    color: indianred;
+}
+
+.voting-btn:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.ticket h3 {
+    margin-top: 0;
+}
+
+.ticket .ticket-type {
+    display: inline-block;
+    font-weight: 600;
+    background-color: beige;
+    color: #abab6d;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+.ticket-form h2 {
+    margin: 20px 0 35px;
+}
+
+.ticket-form .field {
+    margin-bottom: 30px;
+}
+
+.ticket-form .field label {
+    font-weight: 700;
+}
+
+.ticket-form .field p {
+    margin: 2px 0 10px;
+    font-size: smaller;
+}
+
+.ticket-form .field input, .ticket-form .field textarea,.ticket-form  .field select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 5px;
+    resize: none;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.ticket-form .custom-btn {
+    margin-right: 12px;
 }
