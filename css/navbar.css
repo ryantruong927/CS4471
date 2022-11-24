@@ -1,0 +1,48 @@
+#navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f7bd67;
+}
+
+#navbar a:link,
+a:visited {
+    color: black;
+}
+
+.navbar-items {
+    display: flex;
+    flex-direction: column;
+}
+
+#navbar-title {
+    margin: 15px 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+button,
+input,
+#navbar-search,
+#navbar-userbtn {
+    background: none;
+    border: none;
+    font-size: 16px;
+}
+
+#navbar-search {
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+#navbar-userbtn {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+#navbar-userbtn:hover {
+    cursor: pointer;
+}
