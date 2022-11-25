@@ -4,8 +4,8 @@ class Page extends React.Component {
     constructor(props) {
         super(props)
     }
-    render() {
 
+    render() {
         return (
             <div>
                 <Navbar name="Ryan" />

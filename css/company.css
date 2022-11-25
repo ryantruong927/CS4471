@@ -21,21 +21,20 @@
     justify-content: space-between;
 }
 
-#contactinfo {
-    background-color: #f8d59f;
-    border-radius: 10px;
-    padding: 10px 20px;
-}
-
 #posts {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.post {
+.post,
+.post-maximized {
     display: flex;
     flex-direction: column;
+    transition: 0.2s;
+}
+
+.post {
     padding: 15px 15px;
     padding-bottom: 0px;
 }
@@ -58,4 +57,14 @@
 
 .ticket {
     margin-bottom: 15px;
+}
+
+#members {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.member {
+    width: 100%;
 }

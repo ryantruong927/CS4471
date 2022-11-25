@@ -86,19 +86,11 @@ function Overview(props) {
     return (
         <div id="overview">
             <p>An Alphabet property.</p>
-            <div id="contactinfo">
-                <h3>Contact Us</h3>
+            <div className="infobox">
+                <h2>Contact Us</h2>
                 <p>Email: google@google.ca</p>
                 <p>Phone Number: (800) 123-4567</p>
             </div>
-        </div>
-    )
-}
-
-function Members(props) {
-    return (
-        <div id="members">
-            <p>Hey</p>
         </div>
     )
 }
