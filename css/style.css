@@ -32,6 +32,13 @@ input:focus {
     outline: 1px solid;
 }
 
+button,
+.card,
+.pill,
+.tag {
+    transition: 0.2s;
+}
+
 .pill,
 .tag {
     float: left;

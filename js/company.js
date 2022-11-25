@@ -28,7 +28,7 @@ class Page extends React.Component {
         return (
             <div>
                 <Navbar company="Google" name="Ryan" />
-                <Company name="Google" desc="An Alphabet property" onClick={this.updateTab} />
+                <Company selected={this.state.selected} name="Google" desc="An Alphabet property" onClick={this.updateTab} />
                 {tab}
             </div>
         )
@@ -41,13 +41,41 @@ class Company extends React.Component {
     }
 
     render() {
+        let buttons = []
+        switch (this.props.selected) {
+            case "overview":
+                buttons.push(
+                    <button className="companybtn pill" onClick={() => this.props.onClick("overview")} style={{ backgroundColor: "#f7bd67" }}>Overview</button>)
+                buttons.push(
+                    <button className="companybtn pill" onClick={() => this.props.onClick("posts")}>Posts</button>)
+                buttons.push(
+                    <button className="companybtn pill" onClick={() => this.props.onClick("members")}>Members</button>)
+
+                break;
+            case "posts":
+                buttons.push(
+                    <button className="companybtn pill" onClick={() => this.props.onClick("overview")}>Overview</button>)
+                buttons.push(
+                    <button className="companybtn pill" onClick={() => this.props.onClick("posts")} style={{ backgroundColor: "#f7bd67" }}>Posts</button>)
+                buttons.push(
+                    <button className="companybtn pill" onClick={() => this.props.onClick("members")}>Members</button>)
+
+                break;
+            case "members":
+                buttons.push(
+                    <button className="companybtn pill" onClick={() => this.props.onClick("overview")}>Overview</button>)
+                buttons.push(
+                    <button className="companybtn pill" onClick={() => this.props.onClick("posts")}>Posts</button>)
+                buttons.push(
+                    <button className="companybtn pill" onClick={() => this.props.onClick("members")} style={{ backgroundColor: "#f7bd67" }}>Members</button>)
+
+                break;
+        }
         return (
             <div id="company-header">
                 <h1>Google</h1>
                 <div id="company-btns">
-                    <button className="companybtn pill" onClick={() => this.props.onClick("overview")}>Overview</button>
-                    <button className="companybtn pill" onClick={() => this.props.onClick("posts")}>Posts</button>
-                    <button className="companybtn pill" onClick={() => this.props.onClick("members")}>Members</button>
+                    {buttons}
                 </div>
             </div >
         )
