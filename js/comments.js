@@ -3,9 +3,8 @@
 function Comments(props) {
     return (
         <div id="comments">
-            <Comment />
-            <Comment />
-            <Comment />
+            <Comment name="Ryan" text="Isn't that obvious? Downvoted." />
+            <Comment name="Brian" text="^ This guy must be fun at parties" />
         </div>
     )
 }
@@ -18,8 +17,9 @@ class Comment extends React.Component {
     render() {
         return (
             <div className="comment">
-                Ryan <br></br>
-                This post sucks.
+                {this.props.name}
+                <br></br>
+                {this.props.text}
             </div>
         )
     }

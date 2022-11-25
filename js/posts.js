@@ -2,8 +2,13 @@
 
 function Posts(props) {
     let posts = []
-    for (let i = 0; i < 10; i++)
-        posts.push(<Post key={i} postNum={i + 1} />)
+
+    posts.push(<Post key={0} postTitle="Google Stadia Release Announcement" postDesc="We have released the Google Stadia!" postNum={0} postDate="November 19th, 2019" />)
+
+    for (let i = 1; i < 4; i++)
+        posts.push(<Post key={i} postTitle={"Update #" + i} postDesc="This is an update!" postNum={i} postDate={"August 1" + i + "th, 2021"} />)
+
+    posts.push(<Post key={4} postTitle="Google Stadia Will Be Discontinued" postNum={4} postDesc="We regret to announce that Google Stadia will be discontinued on January 18th, 2023." postDate="September 29th, 2022" />)
 
     return (
         <div id="posts">
@@ -40,13 +45,13 @@ class Post extends React.Component {
 
         return (
             <div className={className} id={this.props.postNum}>
-                <h2>Update #{this.props.postNum}</h2>
+                <h2>{this.props.postTitle}</h2>
                 <div className="tags">
-                    <div className="tag">January 1st, 2023</div>
+                    <div className="tag">{this.props.postDate}</div>
                     <div className="tag">Product</div>
                     <div className="tag">Update</div>
                 </div>
-                <p>This is an update.</p>
+                <p>{this.props.postDesc}</p>
                 <button className="more" onClick={this.changeTicketsView}>
                     <i className="fa-solid fa-ellipsis fa-3x moreicon"></i>
                 </button>

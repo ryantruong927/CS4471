@@ -85,7 +85,10 @@ class Company extends React.Component {
 function Overview(props) {
     return (
         <div id="overview">
-            <p>An Alphabet property.</p>
+            <div id="overview-body">
+                <p>Google Stadia will be discontinued on January 18th, 2023</p>
+                <p>Go check out the Google Stadia while you can!</p>
+            </div>
             <div className="infobox">
                 <h2>Contact Us</h2>
                 <p>Email: google@google.ca</p>

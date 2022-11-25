@@ -3,7 +3,7 @@
 function Navbar(props) {
     return (
         <div id="navbar">
-            <a href="index.html" id="navbar-title">TMS</a>
+            <a href="index.html" id="navbar-title">Tickety</a>
             <div id="navbar-items">
                 <div className="navbar-item pill">
                     <i className="fa fa-search fa-xs"></i>
