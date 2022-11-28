@@ -2,6 +2,7 @@ import './App.css';
 import Ticket from "./components/Ticket";
 import TicketForm from "./components/TicketForm";
 import { useState } from "react";
+import CommentSpace from "./components/CommentSpace";
 
 function App() {
 
@@ -71,12 +72,17 @@ function App() {
       <ul>
         <li>Option filter tickets by ticket type</li>
       </ul>
+      <hr/>
+      <h2>Ticket Form</h2>
       <TicketForm createTicket={addTicket}/>
       <hr/>
       <div className="ticket-list">
         { sortSelect }
         { tickets.map( itemData => <Ticket key={itemData.id} data={ itemData }/> ) }
       </div>
+      <hr/>
+      <h2>Comments</h2>
+      <CommentSpace />
     </div>
   );
 }
