@@ -1,11 +1,11 @@
 #navbar {
     position: fixed;
     top: 0;
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #f7bd67;
+    width: 100%;
 }
 
 #navbar a:link,
@@ -13,9 +13,23 @@ a:visited {
     color: black;
 }
 
-.navbar-items {
+#navbar-items {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    line-height: 30px;
+}
+
+.navbar-item {
+    background-color: #f8d59f;
+    border: #f8d59f 2px solid;
+    font-size: 14px;
+    padding: 0 15px 0 15px;
+}
+
+.navbar-item:hover,
+.navbar-item:focus-within {
+    background-color: blanchedalmond;
+    border: blanchedalmond 2px solid;
 }
 
 #navbar-title {
@@ -24,25 +38,7 @@ a:visited {
     font-weight: bold;
 }
 
-button,
-input,
-#navbar-search,
-#navbar-userbtn {
-    background: none;
-    border: none;
-    font-size: 16px;
-}
-
 #navbar-search {
     font-size: 14px;
     margin-left: 5px;
-}
-
-#navbar-userbtn {
-    font-size: 14px;
-    margin-right: 5px;
-}
-
-#navbar-userbtn:hover {
-    cursor: pointer;
 }

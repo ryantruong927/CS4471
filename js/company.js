@@ -45,7 +45,7 @@ class Company extends React.Component {
         switch (this.props.selected) {
             case "overview":
                 buttons.push(
-                    <button className="companybtn pill" onClick={() => this.props.onClick("overview")} style={{ backgroundColor: "#f7bd67" }}>Overview</button>)
+                    <button className="companybtn-focused pill" onClick={() => this.props.onClick("overview")}>Overview</button>)
                 buttons.push(
                     <button className="companybtn pill" onClick={() => this.props.onClick("posts")}>Posts</button>)
                 buttons.push(
@@ -56,7 +56,7 @@ class Company extends React.Component {
                 buttons.push(
                     <button className="companybtn pill" onClick={() => this.props.onClick("overview")}>Overview</button>)
                 buttons.push(
-                    <button className="companybtn pill" onClick={() => this.props.onClick("posts")} style={{ backgroundColor: "#f7bd67" }}>Posts</button>)
+                    <button className="companybtn-focused pill" onClick={() => this.props.onClick("posts")}>Posts</button>)
                 buttons.push(
                     <button className="companybtn pill" onClick={() => this.props.onClick("members")}>Members</button>)
 
@@ -67,7 +67,7 @@ class Company extends React.Component {
                 buttons.push(
                     <button className="companybtn pill" onClick={() => this.props.onClick("posts")}>Posts</button>)
                 buttons.push(
-                    <button className="companybtn pill" onClick={() => this.props.onClick("members")} style={{ backgroundColor: "#f7bd67" }}>Members</button>)
+                    <button className="companybtn-focused pill" onClick={() => this.props.onClick("members")}>Members</button>)
 
                 break;
         }

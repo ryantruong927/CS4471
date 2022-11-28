@@ -7,6 +7,12 @@
 
 .companybtn:hover {
     background-color: #f7bd67;
+    border: #f7bd67 2px solid;
+}
+
+.companybtn-focused {
+    background-color: #f7bd67;
+    border: #f7bd67 2px solid;
 }
 
 #overview,
@@ -46,7 +52,6 @@
 .more:hover,
 .moreicon:hover {
     color: #f7bd67;
-    cursor: pointer;
 }
 
 .more {

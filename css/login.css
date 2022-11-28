@@ -1,0 +1,28 @@
+button:hover {
+    background-color: #f7bd67;
+    transition: 0.2s;
+}
+
+.pill:hover,
+.pill:focus-within {
+    border: #f7bd67 2px solid;
+}
+
+
+#login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: #f8d59f 2px solid;
+    border-radius: 10px;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 35px;
+    width: 500px;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
