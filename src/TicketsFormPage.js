@@ -1,11 +1,11 @@
 import TicketForm from "./components/TicketForm";
 
-const TicketsFormPage = () => {
+const TicketsFormPage = ({ doAction, create }) => {
 
   return (
     <div className="tickets-form-page">
-      <h2>Ticket Form</h2>
-      {/*<TicketForm createTicket={addTicket}/>*/}
+      <button className="custom-btn" onClick={() => doAction('open', `tickets_page null`)}>Go back</button>
+      <TicketForm createTicket={create}/>
     </div>
   )
 }

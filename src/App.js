@@ -59,16 +59,18 @@ function App() {
     setTickets([ ...tickets ])
   }
 
-  // const addTicket = (item) => {
-  //   item = { ...item, id: tickets.length, upvotes: 0, downvotes: 0, comments: 0 }
-  //   setTickets([ ...tickets, item ])
-  // }
+  const addTicket = (item) => {
+    item = { ...item, id: tickets.length, upvotes: 0, downvotes: 0, comments: 0 }
+    setTickets([ ...tickets, item ])
+    setCurrentPage("tickets_page")
+    setSelectedTicket(null)
+  }
 
   let html
   if ( currentPage === 'tickets_page' ){
     html = <TicketsPage tickets={tickets} doAction={doAction}/>
   } else if ( currentPage === 'tickets_form_page' ){
-    html = <TicketsFormPage/>
+    html = <TicketsFormPage create={addTicket} doAction={doAction}/>
   } else if ( currentPage === 'tickets_page_single' ){
     html = <TicketsPageSingle ticket={tickets[selectedTicket]} doAction={doAction}/>
   } else {
