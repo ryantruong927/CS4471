@@ -2,6 +2,10 @@ body {
     background-color: blanchedalmond;
 }
 
+.tickets-page, .tickets-form-page, .tickets-page-single {
+    padding: 5%;
+}
+
 .custom-btn {
     position: relative;
     border-radius: 8px;
@@ -15,7 +19,7 @@ body {
 }
 
 .ticket-list {
-    padding: 5%;
+    padding: 0 4%;
 }
 
 .ticket-form {
@@ -54,6 +58,14 @@ body {
     font-weight: 600;
     border-radius: 8px;
     padding: 7px 15px;
+
+    /* MAKE THEM UNSELECTABLE */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .voting-btn.upvote {
@@ -73,6 +85,11 @@ body {
 
 .ticket h3 {
     margin-top: 0;
+    cursor: pointer;
+}
+
+.ticket .comment-number {
+    cursor: pointer;
 }
 
 .ticket .ticket-type {
@@ -116,8 +133,12 @@ input, textarea,.ticket-form  .field select {
     margin-right: 12px;
 }
 
+.tickets-page-single .ticket-description, .tickets-page-single, .comment-space {
+    margin-top: 30px;
+}
+
 .comment-space {
-    padding: 5% 15%;
+    padding: 0 10%;
 }
 
 .comment-space h3, .comment-space h4, .comment-space p {
