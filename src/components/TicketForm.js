@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const TicketForm = ({ createTicket }) => {
+const TicketForm = ({ createTicket, cancel }) => {
 
   const [ title, setTitle ] = useState("")
   const [ type, setType ] = useState("Feature")
@@ -42,7 +42,7 @@ const TicketForm = ({ createTicket }) => {
       setDescription("")
       setType("Feature")
     }}>Add Feedback</button>
-    <button className="custom-btn dark">Cancel</button>
+    <button className="custom-btn dark" onClick={cancel}>Cancel</button>
   </div>
 
   return (

@@ -62,7 +62,7 @@ const TicketsPageSingle = ({ ticket, doAction }) => {
   return (
     <div className="tickets-page-single">
       <button className="custom-btn" onClick={() => doAction('open', `tickets_page null`)}>Go back</button>
-      <button className="custom-btn" onClick={() => doAction('open', `tickets_form_page ${ticket.id}`)}>Create Ticket</button>
+      <button className="custom-btn" onClick={() => doAction('edit', ticket.id)}>Edit Ticket</button>
 
       { description }
       <div className="comment-space">

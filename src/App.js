@@ -51,6 +51,10 @@ function App() {
         setSelectedTicket(parseInt(direction[1]))
       }
 
+    } else if (action === 'edit') {
+      setSelectedTicket(target)
+      setCurrentPage('tickets_form_page')
+
     } else {
       console.log('Action not found...')
       return
@@ -68,11 +72,20 @@ function App() {
 
   let html
   if ( currentPage === 'tickets_page' ){
-    html = <TicketsPage tickets={tickets} doAction={doAction}/>
+    html = <TicketsPage
+      tickets={tickets}
+      doAction={doAction}
+    />
   } else if ( currentPage === 'tickets_form_page' ){
-    html = <TicketsFormPage create={addTicket} doAction={doAction}/>
+    html = <TicketsFormPage
+      ticket={ selectedTicket !== null ? tickets[selectedTicket] : null }
+      create={addTicket} doAction={doAction}
+    />
   } else if ( currentPage === 'tickets_page_single' ){
-    html = <TicketsPageSingle ticket={tickets[selectedTicket]} doAction={doAction}/>
+    html = <TicketsPageSingle
+      ticket={tickets[selectedTicket]}
+      doAction={doAction}
+    />
   } else {
     html = <h3>Page not found...</h3>
   }
