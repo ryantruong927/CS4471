@@ -45,29 +45,29 @@ class Company extends React.Component {
         switch (this.props.selected) {
             case "overview":
                 buttons.push(
-                    <button className="companybtn-focused pill" onClick={() => this.props.onClick("overview")}>Overview</button>)
+                    <button key={0} className="companybtn-focused pill" onClick={() => this.props.onClick("overview")}>Overview</button>)
                 buttons.push(
-                    <button className="companybtn pill" onClick={() => this.props.onClick("posts")}>Posts</button>)
+                    <button key={1} className="companybtn pill" onClick={() => this.props.onClick("posts")}>Posts</button>)
                 buttons.push(
-                    <button className="companybtn pill" onClick={() => this.props.onClick("members")}>Members</button>)
+                    <button key={2} className="companybtn pill" onClick={() => this.props.onClick("members")}>Members</button>)
 
                 break;
             case "posts":
                 buttons.push(
-                    <button className="companybtn pill" onClick={() => this.props.onClick("overview")}>Overview</button>)
+                    <button key={0} className="companybtn pill" onClick={() => this.props.onClick("overview")}>Overview</button>)
                 buttons.push(
-                    <button className="companybtn-focused pill" onClick={() => this.props.onClick("posts")}>Posts</button>)
+                    <button key={1} className="companybtn-focused pill" onClick={() => this.props.onClick("posts")}>Posts</button>)
                 buttons.push(
-                    <button className="companybtn pill" onClick={() => this.props.onClick("members")}>Members</button>)
+                    <button key={2} className="companybtn pill" onClick={() => this.props.onClick("members")}>Members</button>)
 
                 break;
             case "members":
                 buttons.push(
-                    <button className="companybtn pill" onClick={() => this.props.onClick("overview")}>Overview</button>)
+                    <button key={0} className="companybtn pill" onClick={() => this.props.onClick("overview")}>Overview</button>)
                 buttons.push(
-                    <button className="companybtn pill" onClick={() => this.props.onClick("posts")}>Posts</button>)
+                    <button key={1} className="companybtn pill" onClick={() => this.props.onClick("posts")}>Posts</button>)
                 buttons.push(
-                    <button className="companybtn-focused pill" onClick={() => this.props.onClick("members")}>Members</button>)
+                    <button key={2} className="companybtn-focused pill" onClick={() => this.props.onClick("members")}>Members</button>)
 
                 break;
         }

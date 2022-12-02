@@ -49,16 +49,52 @@
     padding-bottom: 0px;
 }
 
+#post-nav {
+    align-self: flex-end;
+}
+
+#ticket-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* background-color: white; */
+    margin-bottom: 10px;
+}
+
+#ticket-form h2 {
+    margin: 20px 0 35px;
+}
+
+#ticket-form .field {
+    margin-bottom: 30px;
+}
+
+#ticket-form .field label {
+    font-weight: 700;
+}
+
+#ticket-form .field p {
+    margin: 2px 0 10px;
+}
+
+#ticket-form .custom-btn {
+    margin-right: 12px;
+}
+
+#feedback-btn:hover {
+    background-color: #f7bd67;
+    border: #f7bd67 2px solid;
+}
+
 .more:hover,
 .moreicon:hover {
     color: #f7bd67;
 }
 
 .more {
-    align-self: flex-end;
     padding-right: 5px;
+    vertical-align: middle;
 }
-
 
 .moreicon {
     color: #f8d59f;
