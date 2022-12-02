@@ -9,8 +9,7 @@ class Page extends React.Component {
         return (
             <div>
                 <br></br>
-                <Navbar name="Ryan" />
-                <Ticket title="hey" />
+                <Navbar name="Sign In" />
                 <div id="index">
                     <h1>Tickety</h1>
                     <p>Tickety is a ticketing platform that will allow users to communicate with the company through tickets they create.</p>
@@ -22,14 +21,6 @@ class Page extends React.Component {
             </div>
         )
     }
-}
-
-function Ticket(props) {
-    return (
-        <div>
-            <h2>{props.title}</h2>
-        </div>
-    )
 }
 
 const root = ReactDOM.createRoot(document.getElementById("page"));

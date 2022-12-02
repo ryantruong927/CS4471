@@ -9,7 +9,7 @@ class Page extends React.Component {
         return (
             <div id="login">
                 <h1>Tickety</h1>
-                <form id="login-form" action="index.html">
+                <form id="login-form" action="account.html">
                     <div className="login-form-item pill">
                         <i className="fa-solid fa-user"></i>   <input placeholder="Username"></input>
                     </div>

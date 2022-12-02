@@ -17,6 +17,10 @@ class Posts extends React.Component {
 
         return (
             <div id="posts">
+                <div style={{ display: "inline" }}>
+                    <p>Filter by tag(s):</p>
+                    <input className="pill"></input>
+                </div>
                 {posts}
             </div>
         )

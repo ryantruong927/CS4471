@@ -1,0 +1,53 @@
+#account {
+    margin: 10px 100px;
+}
+
+#account-details {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: fit-content;
+}
+
+#account-nav,
+#account-content {
+    height: 100%;
+}
+
+#account-nav {
+    padding: 10px;
+}
+
+#account-content {
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 100%;
+}
+
+.account-field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.account-button {
+    border: blanchedalmond 2px solid;
+    background-color: blanchedalmond;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 30px;
+    margin-right: 5px;
+    padding: 0px 10px;
+    width: fit-content;
+}
+
+.account-button:hover {
+    border: #f8d59f 2px solid;
+    background-color: #f8d59f;
+}
+
+.account-input {
+    line-height: 24px;
+    height: 24px;
+}

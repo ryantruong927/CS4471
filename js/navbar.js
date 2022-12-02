@@ -3,12 +3,6 @@
 class Navbar extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { dropdown: false }
-        this.showDropdown = this.showDropdown.bind(this)
-    }
-
-    showDropdown() {
-        this.setState({ dropdown: !this.state.dropdown })
     }
 
     render() {
@@ -21,7 +15,7 @@ class Navbar extends React.Component {
                         <input id="navbar-search" placeholder="Search"></input>
                     </div>
                     <div>
-                        <a className="navbar-item pill" id="navbar-userbtn" href="login.html">Sign In</a>
+                        <a className="navbar-item pill" id="navbar-userbtn" href="login.html">{this.props.name}</a>
                     </div>
                 </div>
             </div >

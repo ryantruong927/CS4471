@@ -3,7 +3,14 @@
 class Page extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { selected: "overview" }
+
+        let page = window.location.href.split("#")[1]
+        if (window.location.href.split("#")[1] == undefined)
+            page = "overview"
+        this.state = {
+            url: window.location.href.split("#"),
+            selected: page
+        }
         this.updateTab = this.updateTab.bind(this)
     }
 
@@ -13,6 +20,7 @@ class Page extends React.Component {
 
     render() {
         let tab
+        window.location = this.state.url[0] + "#" + this.state.selected
         switch (this.state.selected) {
             case "overview":
                 tab = <Overview />

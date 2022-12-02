@@ -90,7 +90,8 @@ button,
     height: fit-content;
 }
 
-.card:hover {
+.card:hover,
+.card:hover .tag {
     border-color: #f7bd67;
 }
 
@@ -99,11 +100,6 @@ button,
     margin-right: 5px;
     padding: 0px 10px;
     width: fit-content;
-    cursor: pointer;
-}
-
-.tag:hover {
-    background-color: #f8d59f;
 }
 
 .infobox {
