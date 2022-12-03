@@ -29,17 +29,20 @@ function App() {
     }
   ])
 
+  const getTicketById = (id) => {
+    for ( let ticket of tickets ) {
+      if ( ticket.id === id ) return ticket
+    }
+    return null
+  }
+
   const doAction = (action, target) => {
     if (action === 'upvote' || action === 'downvote'){
-      for ( let ticket of tickets ) {
-        if ( ticket.id === target ) {
-          if ( action === 'upvote' ) {
-            ticket.upvotes += 1
-          } else {
-            ticket.downvotes += 1
-          }
-          break;
-        }
+      let ticket = getTicketById(target)
+      if ( action === 'upvote' ) {
+        ticket.upvotes += 1
+      } else {
+        ticket.downvotes += 1
       }
 
     } else if (action === 'create_ticket') {
@@ -49,7 +52,9 @@ function App() {
       setSelectedTicket(null)
 
     } else if (action === 'update_ticket') {
-      tickets[target[0]] = { ...tickets[target[0]], ...target[1] }
+      for ( let i = 0; i < tickets.length; i++) {
+        if ( tickets[i].id === target[0] ) tickets[i] = { ...tickets[i], ...target[1] }
+      }
 
       setCurrentPage("tickets_page")
       setSelectedTicket(null)
@@ -63,8 +68,6 @@ function App() {
         setSelectedTicket(parseInt(direction[1]))
       }
 
-    } else if (action === 'sort') {
-      console.log('sorting in progress...')
     } else if (action === 'edit') {
       setSelectedTicket(target)
       setCurrentPage('tickets_form_page')
@@ -102,7 +105,6 @@ function App() {
       <h1>Ticket World</h1>
       <ul>
         <li>TO DO? Option filter tickets by ticket type</li>
-        <li>Sort</li>
       </ul>
       <hr/>
       { html }
