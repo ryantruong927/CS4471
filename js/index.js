@@ -44,6 +44,11 @@ class Page extends React.Component {
                         });
                     }}>Reset Posts table</button>
                     <button className="pill" onClick={() => {
+                        axios.post('http://localhost:4000/new_post', {}).then((response) => {
+                            console.log(response)
+                        });
+                    }}>New Post</button>
+                    <button className="pill" onClick={() => {
                         axios.post('http://localhost:4000/posts', {}).then((response) => {
                             console.log(response)
                         });

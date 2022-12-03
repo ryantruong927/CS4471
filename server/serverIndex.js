@@ -174,10 +174,10 @@ app.post("/reset_companies", (req,res)=> {
 
 app.post("/new_company", (req,res)=> {
 
-  const query = `INSERT INTO Company (CompanyID, Name, Description, Email) VALUES (8, 'CName', 'CDesc', 'cname@mail.com');`;
+  const random_id = Math.floor(Math.random() * 100);
+  const query = `INSERT INTO Company (CompanyID, Name, Description, Email) VALUES (${random_id}, 'CName', 'CDesc', 'cname@mail.com');`;
 
-  const request = new Request(query,
-    (err, rowCount) => {
+  const request = new Request(query, (err, rowCount) => {
       if (err) {
         console.error(err.message);
       }
@@ -231,7 +231,9 @@ app.post("/reset_posts", (req,res)=> {
 
 app.post("/new_post", (req,res)=> {
 
-  const query = `INSERT INTO Post (PostID, CompanyID, Name, Description, Date) VALUES (2, 8, 'PostName', 'Post_desc', '12-03-2022');`;
+  const companyID = 19;
+  const random_id = Math.floor(Math.random() * 100);
+  const query = `INSERT INTO Post (PostID, CompanyID, Name, Description, Date) VALUES (${random_id}, ${companyID}, 'PostName', 'Post_desc', '12-03-2022');`;
 
   const request = new Request(query,
     (err, rowCount) => {
