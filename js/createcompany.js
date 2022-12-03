@@ -37,13 +37,13 @@ class CreateCompany extends React.Component {
         var email = document.getElementById('email').value;
 
         axios.post('http://localhost:4000/company', {
-          name: name,
-          description: description, 
-          email: email
+            name: name,
+            description: description, 
+            email: email
         }).then((response) => {
-          console.log(response);
+            console.log(response);
         })
-      };
+    }
 
     render() {
     }
