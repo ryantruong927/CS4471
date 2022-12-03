@@ -58,6 +58,34 @@ app.post("/register", (req,res)=> {
       connection.execSql(request);
 });
 
+app.post('/login', (req,res) =>{
+    const username = req.body.username;
+    const password = req.body.password;
+    results = [];
+    const q = "SELECT * FROM users WHERE userName = @uname AND password = @upass;";
+    const request = new Request(q,
+        (err) => {
+            if (err) {
+                console.error(err.message);
+                connection.close();
+            }
+            if(results.length > 0 ){
+                res.json(results);
+            }else{
+                res.send({message: "Invalid Credentials!"})
+            }
+        }
+    );
+    request.addParameter('uname', TYPES.VarChar, username);
+    request.addParameter('upass', TYPES.VarChar, password);
+
+    request.on("row", columns => {
+        results.push(columns);
+    });
+    connection.execSql(request);
+
+})
+
 app.post('/getuser', (req,res) =>{
   const username = req.body.username;
   results = [];
@@ -84,9 +112,6 @@ app.post('/getuser', (req,res) =>{
 
 })
 
-
-
-
 app.post("/updatePass", (req,res)=> {
   const username = req.body.username;
   const password = req.body.password;
@@ -109,7 +134,6 @@ app.post("/updatePass", (req,res)=> {
     connection.execSql(request);
 });
 
-
 app.post("/updateEmail", (req,res)=> {
   const username = req.body.username;
   const email = req.body.email;
@@ -131,36 +155,6 @@ app.post("/updateEmail", (req,res)=> {
     request.addParameter('email', TYPES.VarChar, email);
     connection.execSql(request);
 });
-
-
-
-app.post('/login', (req,res) =>{
-    const username = req.body.username;
-    const password = req.body.password;
-    results = [];
-    const q = "SELECT * FROM users WHERE userName = @uname AND password = @upass;";
-    const request = new Request(q,
-        (err) => {
-          if (err) { 
-            console.error(err.message);
-            connection.close();
-          }
-          if(results.length > 0 ){
-            res.json(results);
-        }else{
-            res.send({message: "Invalid Credentials!"})
-        }
-        }
-      );
-      request.addParameter('uname', TYPES.VarChar, username);
-      request.addParameter('upass', TYPES.VarChar, password);
-
-      request.on("row", columns => {
-        results.push(columns);
-      });
-    connection.execSql(request); 
-
-})
 
 
 app.post("/reset_companies", (req,res)=> {
@@ -202,7 +196,6 @@ app.post("/companies", (req,res)=> {
     (err) => {
       if (err) {
         console.error(err.message);
-        connection.close();
       }
 
       if(results.length > 0 ){
@@ -260,7 +253,6 @@ app.post("/posts", (req,res)=> {
     (err) => {
       if (err) {
         console.error(err.message);
-        connection.close();
       }
 
       if(results.length > 0 ){
@@ -317,7 +309,6 @@ app.post("/tickets", (req,res)=> {
     (err) => {
       if (err) {
         console.error(err.message);
-        connection.close();
       }
 
       if(results.length > 0 ){
