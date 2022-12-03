@@ -42,6 +42,18 @@ function App() {
         }
       }
 
+    } else if (action === 'create_ticket') {
+      let item = { ...target, id: tickets.length, upvotes: 0, downvotes: 0, comments: 0 }
+      tickets.push(item)
+      setCurrentPage("tickets_page")
+      setSelectedTicket(null)
+
+    } else if (action === 'update_ticket') {
+      tickets[target[0]] = { ...tickets[target[0]], ...target[1] }
+
+      setCurrentPage("tickets_page")
+      setSelectedTicket(null)
+
     } else if (action === 'open'){
       let direction = target.split(' ')
       setCurrentPage(direction[0])
@@ -51,6 +63,8 @@ function App() {
         setSelectedTicket(parseInt(direction[1]))
       }
 
+    } else if (action === 'sort') {
+      console.log('sorting in progress...')
     } else if (action === 'edit') {
       setSelectedTicket(target)
       setCurrentPage('tickets_form_page')
@@ -63,13 +77,6 @@ function App() {
     setTickets([ ...tickets ])
   }
 
-  const addTicket = (item) => {
-    item = { ...item, id: tickets.length, upvotes: 0, downvotes: 0, comments: 0 }
-    setTickets([ ...tickets, item ])
-    setCurrentPage("tickets_page")
-    setSelectedTicket(null)
-  }
-
   let html
   if ( currentPage === 'tickets_page' ){
     html = <TicketsPage
@@ -79,7 +86,7 @@ function App() {
   } else if ( currentPage === 'tickets_form_page' ){
     html = <TicketsFormPage
       ticket={ selectedTicket !== null ? tickets[selectedTicket] : null }
-      create={addTicket} doAction={doAction}
+      doAction={doAction}
     />
   } else if ( currentPage === 'tickets_page_single' ){
     html = <TicketsPageSingle
@@ -95,6 +102,7 @@ function App() {
       <h1>Ticket World</h1>
       <ul>
         <li>TO DO? Option filter tickets by ticket type</li>
+        <li>Sort</li>
       </ul>
       <hr/>
       { html }
