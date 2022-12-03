@@ -21,6 +21,9 @@ class Navbar extends React.Component {
                     <div>
                         <button className="navbar-item pill" onClick={this.logout} id="navbar-userbtn" href="login.html">{this.props.name}</button>
                     </div>
+                    <div>
+                        <button className="navbar-item pill" id="navbar-userbtn" onClick={() => {window.location.href="account.html"}}>Update</button>
+                    </div>
                 </div>
             </div >
         )
