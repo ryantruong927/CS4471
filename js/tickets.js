@@ -18,6 +18,10 @@ class Ticket extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            author: {
+                username: 'mcreus',
+                date: '12/03/2022'
+            },
             upvotes: 0,
             downvotes: 0,
             isShowingComments: false,
@@ -64,8 +68,9 @@ class Ticket extends React.Component {
                     </div>
                     <div className="col">
                         <div className="ticket-body">
+                            <span className="ticket-author">By @{this.state.author.username}, on {this.state.author.date}</span>
                             <h3>Ticket #{this.props.ticketNum}</h3>
-                            <p>The site is not quite finished yet.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel.</p>
                             <div className="ticket-type">Type</div>
                         </div>
                     </div>
