@@ -24,7 +24,7 @@ class Ticket extends React.Component {
             name: props.name,
             username: props.username,
             date: props.date,
-            tag: props.tag,
+            tags: props.tags,
             upvotes: props.upvotes,
             downvotes: props.downvotes,
             comments: [
@@ -107,9 +107,17 @@ class Ticket extends React.Component {
                     <div className="col">
                         <div className="ticket-body">
                             <h3 style={{ marginBottom: 0 }}>{this.state.title}</h3>
-                            <span className="ticket-author">by {this.state.name} (@{this.state.username}) on {this.state.date}</span>
+                            <span className="ticket-author">
+                                by {this.state.name} (@{this.state.username}) on {this.state.date}</span>
                             <p>{this.state.description}</p>
-                            <div className="ticket-type">{this.state.tag}</div>
+                            <div>
+                                <div className="tag">
+                                    {this.state.tags[0]}
+                                </div>
+                                <div className="tag">
+                                    {this.state.tags[1]}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -215,11 +223,11 @@ class CommentForm extends React.Component {
         return (
             <div className="post-comment">
                 <textarea
-                    placeholder="Add a comment" maxLength={255} rows={3}
+                    placeholder="Add a comment" maxLength={550} rows={3}
                     value={this.state.description} onChange={e => this.setDescription(e.target.value)}
                 ></textarea>
                 <div>
-                    <span>{255 - this.state.description.length} characters left</span>
+                    <span>{550 - this.state.description.length} characters left</span>
                     <button
                         className="comment-btn pill"
                         onClick={() => {

@@ -44,7 +44,7 @@ class Post extends React.Component {
                     name: "Ryan Truong",
                     username: "ryantruong927",
                     date: "10/11/2022",
-                    tag: "Bug",
+                    tags: ["Bug", "Not In Progress"],
                     upvotes: 10,
                     downvotes: 250,
                 },
@@ -55,7 +55,7 @@ class Post extends React.Component {
                     name: "Brian Wrong",
                     username: "ryantruong927",
                     date: "10/11/2022",
-                    tag: "Bug",
+                    tags: ["Bug", "Completed"],
                     upvotes: 235,
                     downvotes: 4,
                 }
@@ -142,7 +142,7 @@ class Post extends React.Component {
                                 name={ticket.name}
                                 username={ticket.username}
                                 date={ticket.date}
-                                tag={ticket.tag}
+                                tags={ticket.tags}
                                 upvotes={ticket.upvotes}
                                 downvotes={ticket.downvotes}
                             />
@@ -160,7 +160,10 @@ class TicketForm extends React.Component {
         this.state = {
             title: "",
             description: "",
-            tag: "Bug"
+            tags: [
+                "",
+                "Not In Progress"
+            ]
         }
         this.setTitle = this.setTitle.bind(this)
         this.setTag = this.setTag.bind(this)
@@ -172,7 +175,7 @@ class TicketForm extends React.Component {
     }
 
     setTag(tag) {
-        this.setState({ tag: tag });
+        this.state.tags[0] = tag
     }
 
     setDescription(description) {
@@ -195,8 +198,8 @@ class TicketForm extends React.Component {
                     <label htmlFor="ticket-type">Tag</label>
                     <p>Add a tag to help identify the type of ticket</p>
                     <input
-                        type="text" className="pill" id="ticket-tag" placeholder="Add a title" autoComplete="off"
-                        value={this.state.tag}
+                        type="text" className="pill" id="ticket-tag" placeholder="Add a tag (ex. Bug, Issue, Suggestion, etc.)" autoComplete="off"
+                        value={this.state.tags[0]}
                         onChange={e => this.setTag(e.target.value)}
                     />
                 </div>
@@ -220,7 +223,7 @@ class TicketForm extends React.Component {
                             name: "Ryan Truong",
                             username: "ryantruong927",
                             date: "03/12/22",
-                            tag: this.state.tag,
+                            tags: this.state.tags,
                             upvotes: 0,
                             downvotes: 0
                         }
@@ -229,7 +232,7 @@ class TicketForm extends React.Component {
                     }
                     >Add Feedback</button>
                 </div>
-            </div>
+            </div >
         )
     }
 }
