@@ -56,6 +56,33 @@ app.post("/register", (req,res)=> {
 });
 
 
+app.post('/getuser', (req,res) =>{
+  const username = req.body.username;
+  results = [];
+  const q = "SELECT * FROM users WHERE userName = @uname;";
+  const request = new Request(q,
+      (err) => {
+        if (err) { 
+          console.error(err.message);
+          connection.close();
+        }
+        if(results.length > 0 ){
+          res.json(results);
+      }else{
+        console.log("Not working")
+          res.send({message: "Invalid Credentials!"})
+      }
+      }
+    );
+    request.addParameter('uname', TYPES.VarChar, username);
+
+    request.on("row", columns => {
+      results.push(columns);
+    });
+  connection.execSql(request); 
+
+})
+
 app.post('/login', (req,res) =>{
     const username = req.body.username;
     const password = req.body.password;

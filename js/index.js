@@ -10,7 +10,7 @@ class Page extends React.Component {
         return (
             <div>
                 <br></br>
-                <Navbar name="Sign In" />
+                <Navbar name="Log Out" />
                 <div id="index">
                     <h1>Tickety</h1>
                     <p>Tickety is a ticketing platform that will allow users to communicate with the company through tickets they create.</p>
