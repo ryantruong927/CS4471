@@ -5,6 +5,8 @@ function Members(props) {
     for (let i = 0; i < 10; i++)
         members.push(<Member key={i} memberNum={i + 1} />)
 
+    let edit = <button className="companybtn pill" onClick={() => props.onClick("managemembers")}><p>Manage Members</p></button>
+
     return (
         <div id="members">
             <div className="member infobox">
@@ -18,6 +20,9 @@ function Members(props) {
             <div className="member infobox">
                 <h2>Moderators</h2>
                 {members}
+            </div>
+            <div id="edit-btn">
+                {edit}
             </div>
         </div>
     )

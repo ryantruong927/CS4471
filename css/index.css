@@ -1,3 +1,5 @@
-#index {
+#index,
+#create-btn,
+#edit {
     margin: 10px 100px;
 }

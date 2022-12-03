@@ -17,7 +17,8 @@
 
 #overview,
 #posts,
-#members {
+#members,
+#edit {
     margin: 10px 100px;
 }
 
@@ -31,6 +32,32 @@
     display: block;
 }
 
+#edit-btn,
+#back-btn,
+#create-btn {
+    bottom: 10%;
+    position: fixed;
+}
+
+#post-btn {
+    display: flex;
+    justify-content: right;
+}
+
+#edit {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: larger;
+}
+
+input[type="text"],
+textarea {
+
+    background-color: #fff;
+    padding: 10px;
+}
+
 #posts {
     display: flex;
     flex-direction: column;
@@ -42,15 +69,257 @@
     display: flex;
     flex-direction: column;
     transition: 0.2s;
+    width: 100%;
 }
 
 .post {
-    padding: 15px 15px;
     padding-bottom: 0px;
 }
 
 #post-nav {
     align-self: flex-end;
+}
+
+#tickets {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    transition: 0.2s;
+}
+
+.ticket-nav,
+.comment-number {
+    align-self: flex-end;
+    width: fit-content;
+}
+
+.ticket-list {
+    padding: 0 4%;
+}
+
+.ticket-form {
+    padding: 3% 25%;
+}
+
+.ticket-list .ticket:not(:last-of-type) {
+    margin-bottom: 25px;
+}
+
+.ticket-container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+    padding-bottom: 0;
+    transition: 0.2s;
+}
+
+.ticket {
+    display: grid;
+    grid-template-columns: 1fr 13fr 1fr;
+    column-gap: 25px;
+    transition: 0.2s;
+}
+
+.ticket .col:last-child {
+    display: flex;
+    align-items: center;
+}
+
+.votes {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.voting-btn {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    background-color: #F2F4FF;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 7px 15px;
+
+    /* MAKE THEM UNSELECTABLE */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.voting-btn.upvote {
+    color: darkseagreen;
+    margin-bottom: 12px;
+}
+
+.voting-btn.downvote {
+    flex-direction: column-reverse;
+    color: indianred;
+}
+
+.voting-btn:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.ticket h3 {
+    margin: 10px 0 20px;
+    cursor: pointer;
+}
+
+.ticket .ticket-author {
+    font-size: smaller;
+    color: dimgrey;
+}
+
+.ticket .ticket-type {
+    display: inline-block;
+    font-weight: 600;
+    background-color: beige;
+    color: #abab6d;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+.ticket-form h2 {
+    margin: 20px 0 35px;
+}
+
+.ticket-form .field {
+    margin-bottom: 30px;
+}
+
+.ticket-form .field label {
+    font-weight: 700;
+}
+
+.ticket-form .field p {
+    margin: 2px 0 10px;
+    font-size: smaller;
+}
+
+input,
+textarea,
+.ticket-form .field select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 5px;
+    resize: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.ticket-form .custom-btn {
+    margin-right: 12px;
+}
+
+.comment-number {
+    padding-right: 8px;
+}
+
+.tickets-page-single .ticket-description,
+.tickets-page-single,
+.comment-space {
+    margin-top: 30px;
+}
+
+.comment-space {
+    padding: 0 10%;
+}
+
+.comment-space h3,
+.comment-space h4,
+.comment-space p {
+    margin: 0;
+    padding: 0;
+}
+
+.comments,
+.post-comment {
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.comments {
+    margin-bottom: 25px;
+}
+
+.ticket-comment {
+    padding: 30px 0;
+}
+
+.ticket-comment:not(:nth-of-type(1)) {
+    border-top: 1.4px solid #E2E4EC;
+}
+
+.ticket-comment .header {
+    display: grid;
+    grid-template-columns: 3fr 20fr 2fr;
+}
+
+.ticket-comment .header .col {
+    display: flex;
+    align-items: center;
+}
+
+.ticket-comment .header .profile-pic img {
+    border-radius: 65%;
+    width: 55%;
+}
+
+.ticket-comment .header .names h4 {
+    /*color: var(--color-secondary);*/
+    line-height: 22px;
+}
+
+.ticket-comment .header .reply a {
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.ticket-comment .header .reply a:hover {
+    text-decoration: underline;
+}
+
+.ticket-comment .body {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(25, 1fr);
+    margin-top: 15px;
+}
+
+.ticket-comment .description,
+.ticket-comment .reply-form {
+    grid-column: 4 / 26;
+}
+
+.ticket-comment .reply-form {
+    margin-top: 20px;
+}
+
+.ticket-comment .reply-form div {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    row-gap: 15px;
+    column-gap: 15px;
+}
+
+.ticket-comment .reply-form textarea {
+    grid-column: 1 / 12;
+    grid-row: 1 / 5;
+}
+
+.ticket-comment .reply-form button {
+    padding: 12px;
+    grid-column: 12 / 16;
 }
 
 #ticket-form {
@@ -59,10 +328,23 @@
     gap: 10px;
     /* background-color: white; */
     margin-bottom: 10px;
+    width: 100%;
 }
 
 #ticket-form h2 {
     margin: 20px 0 35px;
+}
+
+#ticket-form input,
+#ticket-form textarea {
+    background-color: #f7f8fd;
+    border: #f7f8fd 2px solid;
+    min-height: 30px;
+    width: 100%;
+}
+
+#ticket-form textarea {
+    min-height: 200px;
 }
 
 #ticket-form .field {
