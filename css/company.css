@@ -154,8 +154,13 @@ input[type="text"], textarea {
 }
 
 .ticket h3 {
-    margin-top: 0;
+    margin: 10px 0 20px;
     cursor: pointer;
+}
+
+.ticket .ticket-author {
+    font-size: smaller;
+    color: dimgrey;
 }
 
 .ticket .comment-number {
