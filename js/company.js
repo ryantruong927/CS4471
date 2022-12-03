@@ -4,7 +4,7 @@ class Page extends React.Component {
     constructor(props) {
         super(props)
 
-        let id = window.location.href.split("id=")[1]
+        let id = window.location.href.split("id=")[1].split("#")[0]
         let page = window.location.href.split("#")[1]
         if (window.location.href.split("#")[1] == undefined)
             page = "overview"
@@ -12,7 +12,7 @@ class Page extends React.Component {
         this.state = {
             url: window.location.href.split("#"),
             selected: page,
-            id: "test",
+            id: id,
             name: "",
             description: "",
             email: ""
@@ -51,7 +51,7 @@ class Page extends React.Component {
         return (
             <div>
                 <Navbar company="Google" name="Ryan" />
-                <Company selected={this.state.selected} name="Google" desc="An Alphabet property" onClick={this.updateTab} />
+                <Company id={this.state.id} selected={this.state.selected} name="Google" desc="An Alphabet property" onClick={this.updateTab} />
                 {tab}
             </div>
         )
@@ -96,7 +96,7 @@ class Company extends React.Component {
         }
         return (
             <div id="company-header">
-                <h1>google</h1>
+                <h1>{this.props.id}</h1>
                 <div id="company-btns">
                     {buttons}
                 </div>
