@@ -87,7 +87,7 @@ class Page extends React.Component {
                         <i className="fa-solid fa-user"></i>  <input type="text"  placeholder="Username" name="userName" onChange={(e)=> {this.setRegisterUser(e.target.value)}}/>
                     </div>
                     <div className="login-form-item pill">
-                        <i className="fa-solid fa-lock"></i>    <input type="password" autocomplete="off" placeholder="Password" name="password"onChange={(e)=> {this.setRegisterPassword(e.target.value)}}/>
+                        <i className="fa-solid fa-lock"></i>    <input type="password" autoComplete="off" placeholder="Password" name="password"onChange={(e)=> {this.setRegisterPassword(e.target.value)}}/>
                     </div>
                     <button className="pill" onClick={this.register} >Create Account</button>
                 </div><br></br>
@@ -98,7 +98,7 @@ class Page extends React.Component {
                         <i className="fa-solid fa-user"></i>  <input type="text" placeholder="Username" name="userName" onChange={(e)=> {this.setLoginUser(e.target.value)}}/>
                     </div>
                     <div className="login-form-item pill">
-                        <i className="fa-solid fa-lock"></i>  <input type="password" autocomplete="off" placeholder="Password" name="password" onChange={(e)=> {this.setLoginPassword(e.target.value)}}/>
+                        <i className="fa-solid fa-lock"></i>  <input type="password" autoComplete="off" placeholder="Password" name="password" onChange={(e)=> {this.setLoginPassword(e.target.value)}}/>
                     </div>
                     <button onClick={this.login} className="pill">Sign In</button>
                 </div>

@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9ae54dc-5a52-499f-961e-676e1bdb16e6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/css/company.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/company.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/tickets.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/tickets.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/login.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,5 +67,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
