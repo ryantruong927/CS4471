@@ -36,7 +36,7 @@ app.post("/company", (req,res)=> {
     const name = req.body.name;
     const description = req.body.description;
     const email = req.body.email;
-    const query = "INSERT INTO company (name, description, email, CompanyID) VALUES (@uname, @udescription, @uemail, '1')";
+    const query = "INSERT INTO company (name, description, email) VALUES (@uname, @udescription, @uemail)";
 
     const request = new Request(query,
         (err, rowCount) => {
@@ -51,6 +51,30 @@ app.post("/company", (req,res)=> {
       console.log(request);
 
     connection.execSql(request);
+});
+
+app.post("/editcompany", (req,res)=> {
+
+  const id = req.body.id;
+  const name = req.body.name;
+  const description = req.body.description;
+  const email = req.body.email;
+  const query = "UPDATE company SET name=@uname, description=@udescription, email=@uemail WHERE CompanyID=@uid";
+
+  const request = new Request(query,
+      (err, rowCount) => {
+        if (err) {
+          console.error(err.message);
+        } 
+      }
+    );
+    request.addParameter('uid', TYPES.Int, id);
+    request.addParameter('uname', TYPES.VarChar, name);
+    request.addParameter('udescription', TYPES.VarChar, description);
+    request.addParameter('uemail', TYPES.VarChar, email);
+    console.log(request);
+
+  connection.execSql(request);
 });
 
 app.post("/getcompany", (req,res)=> {

@@ -52,7 +52,7 @@ class Page extends React.Component {
                 tab = <Members selected={this.state.selected} onClick={this.updateTab}/>
                 break
             case "editcompany":
-                tab = <Edit selected={this.state.selected} onClick={this.updateTab}/>
+                tab = <Edit selected={this.state.selected} id={this.state.id} name={this.state.name} description={this.state.description} email={this.state.email} onClick={this.updateTab}/>
                 break 
             case "managemembers":
                 tab = <Manage selected={this.state.selected} onClick={this.updateTab}/>
@@ -64,7 +64,7 @@ class Page extends React.Component {
 
         return (
             <div>
-                <Navbar company="Google" name={Cookies.get('loggedIn')} />
+                <Navbar company={this.state.name} name={Cookies.get('loggedIn')} />
                 <Company selected={this.state.selected} name={this.state.name} description={this.state.description} email={this.state.email} onClick={this.updateTab} />
                 {tab}
             </div>
