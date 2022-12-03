@@ -45,6 +45,9 @@ app.post("/register", (req,res)=> {
         (err, rowCount) => {
           if (err) {
             console.error(err.message);
+            res.send({message: "Invalid Username!"})
+          }else{
+            res.send({note: "Registered!"})
           } 
         }
       );
@@ -69,7 +72,6 @@ app.post('/getuser', (req,res) =>{
         if(results.length > 0 ){
           res.json(results);
       }else{
-        console.log("Not working")
           res.send({message: "Invalid Credentials!"})
       }
       }
@@ -83,11 +85,60 @@ app.post('/getuser', (req,res) =>{
 
 })
 
+
+
+
+app.post("/updatePass", (req,res)=> {
+  const username = req.body.username;
+  const password = req.body.password;
+  
+  const query = "UPDATE users SET password = @upass WHERE UserName = @uname;";
+
+  const request = new Request(query,
+      (err, rowCount) => {
+        if (err) {
+          console.error(err.message);
+          connection.close();
+          res.send({message: "Update Failed!"})
+        }else{
+          res.send({note: "Success!"})
+        } 
+      }
+    );
+    request.addParameter('uname', TYPES.VarChar, username);
+    request.addParameter('upass', TYPES.VarChar, password);
+    connection.execSql(request);
+});
+
+
+app.post("/updateEmail", (req,res)=> {
+  const username = req.body.username;
+  const email = req.body.email;
+  
+  const query = "UPDATE users SET email = @email WHERE UserName = @uname;";
+
+  const request = new Request(query,
+      (err, rowCount) => {
+        if (err) {
+          console.error(err.message);
+          connection.close();
+          res.send({message: "Update Failed!"})
+        }else{
+          res.send({note: "Success!"})
+        } 
+      }
+    );
+    request.addParameter('uname', TYPES.VarChar, username);
+    request.addParameter('email', TYPES.VarChar, email);
+    connection.execSql(request);
+});
+
+
+
 app.post('/login', (req,res) =>{
     const username = req.body.username;
     const password = req.body.password;
     results = [];
- //   const q = "SELECT * FROM users;";
     const q = "SELECT * FROM users WHERE userName = @uname AND password = @upass;";
     const request = new Request(q,
         (err) => {
@@ -98,7 +149,6 @@ app.post('/login', (req,res) =>{
           if(results.length > 0 ){
             res.json(results);
         }else{
-          console.log("Not working")
             res.send({message: "Invalid Credentials!"})
         }
         }

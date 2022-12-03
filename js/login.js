@@ -20,6 +20,7 @@ class Page extends React.Component {
         this.register = this.register.bind(this)
         this.login = this.login.bind(this)
         this.logout = this.logout.bind(this)
+        this.hider = this.hider.bind(this)
 
     }
 
@@ -43,15 +44,36 @@ class Page extends React.Component {
     }
 
     register() {
+    
         axios.post('http://localhost:4000/register', {
           username: this.state.registerUser,
           password: this.state.registerPassword, 
           email: this.state.email
         }).then((response) => {
-          console.log(response);
+        if(response.data.message){
+            this.setLoginStat(response.data.message)
+            alert(response.data.message);
+            }else{
+            Cookies.set("loggedIn", this.state.registerUser, { expires: 1 });
+            this.setLoginStat(this.state.registerUser);
+            window.location.href='index.html';
+            }
+
         })
       };
 
+      
+       hider(){
+        var log = document.getElementById("login-form");
+        var reg = document.getElementById("reg-form");
+        if (log.style.display === "none") {
+            reg.style.display = "none";
+            log.style.display = "flex";
+        } else {
+            reg.style.display = "flex";
+            log.style.display = "none";
+        }
+      }
        login () {
         axios.post('http://localhost:4000/login', {
           username: this.state.loginUser,
@@ -78,29 +100,31 @@ class Page extends React.Component {
             <div id="login">
                 <h1>Tickety</h1><br></br>
 
+                <div id="reg-form" >
                 <h3>Register</h3>
-                <div id="login-form" >
                     <div className="login-form-item pill">
-                        <i className="fa-solid fa-envelope"></i>    <input type="text" placeholder="Email" name="Email"onChange={(e)=> {this.setEmail(e.target.value)}}/>
+                        <i className="fa-solid fa-envelope"></i>    <input type="email" placeholder="Email" name="Email"onChange={(e)=> {this.setEmail(e.target.value)}}/>
                     </div>
                     <div className="login-form-item pill">
                         <i className="fa-solid fa-user"></i>  <input type="text"  placeholder="Username" name="userName" onChange={(e)=> {this.setRegisterUser(e.target.value)}}/>
                     </div>
                     <div className="login-form-item pill">
-                        <i className="fa-solid fa-lock"></i>    <input type="password" autocomplete="off" placeholder="Password" name="password"onChange={(e)=> {this.setRegisterPassword(e.target.value)}}/>
+                        <i className="fa-solid fa-lock"></i>    <input type="password" autoComplete="off" placeholder="Password" name="password"onChange={(e)=> {this.setRegisterPassword(e.target.value)}}/>
                     </div>
                     <button className="pill" onClick={this.register} >Create Account</button>
-                </div><br></br>
+                    <button onClick={this.hider} className="pill">Already Have an account?</button>
 
-                <h3>Login</h3>
+                </div><br></br>
                 <div id="login-form" >
+                <h3>Login</h3>
                     <div className="login-form-item pill">
                         <i className="fa-solid fa-user"></i>  <input type="text" placeholder="Username" name="userName" onChange={(e)=> {this.setLoginUser(e.target.value)}}/>
                     </div>
                     <div className="login-form-item pill">
-                        <i className="fa-solid fa-lock"></i>  <input type="password" autocomplete="off" placeholder="Password" name="password" onChange={(e)=> {this.setLoginPassword(e.target.value)}}/>
+                        <i className="fa-solid fa-lock"></i>  <input type="password" autoComplete="off" placeholder="Password" name="password" onChange={(e)=> {this.setLoginPassword(e.target.value)}}/>
                     </div>
                     <button onClick={this.login} className="pill">Sign In</button>
+                    <button onClick={this.hider} className="pill">New? Sign Up!</button>
                 </div>
 
                 </div>

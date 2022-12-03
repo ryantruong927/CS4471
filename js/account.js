@@ -4,12 +4,13 @@ class Page extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            username: "",
+            username: Cookies.get('loggedIn'),
             password: "",
             email: ""
         }
-        this.getuser = this.getuser.bind(this)
-        this.getuser();
+        this.updatePass = this.updatePass.bind(this);
+        this.updateEmail = this.updateEmail.bind(this);
+        this.setUsername=this.setUsername.bind(this);
     }
 
     getuser () {
@@ -27,10 +28,37 @@ class Page extends React.Component {
         });
       }
 
-    setUsername(username) {
-        this.setState({ username: username })
-    }
+      updatePass () {
+         axios.post('http://localhost:4000/updatePass', {
+           username: this.state.username, 
+           password: this.state.password,
+         }).then((response) => {
+             if(response.data.message){
+             console.log(response.data.message)
+           }else{
+            console.log(response)
+         }
+         });
+       }
 
+       updateEmail (email) {
+         axios.post('http://localhost:4000/updateEmail', {
+           username: this.state.username, 
+           email: this.state.email,
+         }).then((response) => {
+             if(response.data.message){
+             console.log(response.data.message)
+           }else{
+            console.log(response)
+         }
+         });
+       }
+
+    setUsername() {
+        var user = Cookies.get('loggedIn');
+        this.setState({ username: user })
+    }
+    
     setFirstname(firstname) {
         this.setState({ firstname: firstname })
     }
@@ -69,11 +97,14 @@ class Page extends React.Component {
                             </div>
                             <div className="account-field">
                                 <label>Password:</label>
-                                <input htmlFor="password" type="password" value={this.state.password} className="account-input pill" onChange={e => this.setPassword(e.target.value)} />
+                                <input htmlFor="password" type="password" className="account-input pill" onChange={e => this.setPassword(e.target.value)} />
+                                <button onClick={this.updatePass} className="pill">Update</button>
                             </div>
                             <div className="account-field">
                                 <label>Email:</label>
-                                <input htmlFor="email" type="text" value={this.state.email} className="account-input pill" onChange={e => this.setEmail(e.target.value)} />
+                                <input htmlFor="email" type="text" className="account-input pill" onChange={e => this.setEmail(e.target.value)} />
+                                <button onClick={this.updateEmail} className="pill">Update</button>
+
                             </div>
                         </div>
                     </div>
