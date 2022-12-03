@@ -23,14 +23,23 @@ class Page extends React.Component {
         window.location = this.state.url[0] + "#" + this.state.selected
         switch (this.state.selected) {
             case "overview":
-                tab = <Overview />
+                tab = <Overview selected={this.state.selected} onClick={this.updateTab}/>
                 break
             case "posts":
-                tab = <Posts />
+                tab = <Posts selected={this.state.selected} onClick={this.updateTab}/>
                 break
             case "members":
-                tab = <Members />
+                tab = <Members selected={this.state.selected} onClick={this.updateTab}/>
                 break
+            case "editcompany":
+                tab = <Edit selected={this.state.selected} onClick={this.updateTab}/>
+                break 
+            case "managemembers":
+                tab = <Manage selected={this.state.selected} onClick={this.updateTab}/>
+                break 
+            case "createpost":
+                tab = <CreatePosts selected={this.state.selected} onClick={this.updateTab}/>
+                break 
         }
 
         return (
@@ -91,6 +100,9 @@ class Company extends React.Component {
 }
 
 function Overview(props) {
+
+    let edit = <button className="companybtn pill" onClick={() => props.onClick("editcompany")}><p>Edit Company</p></button>
+
     return (
         <div id="overview">
             <div id="overview-body">
@@ -101,6 +113,9 @@ function Overview(props) {
                 <h2>Contact Us</h2>
                 <p>Email: google@google.ca</p>
                 <p>Phone Number: (800) 123-4567</p>
+            </div>
+            <div id="edit-btn">
+                {edit}
             </div>
         </div>
     )

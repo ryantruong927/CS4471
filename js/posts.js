@@ -1,30 +1,31 @@
 "use strict"
 
-class Posts extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+function Posts(props) {
 
-    render() {
-        let posts = []
+    let posts = []
+    let create = <button className="companybtn pill" onClick={() => props.onClick("createpost")}><p>Create Post</p></button>
 
-        posts.push(<Post key={0} postTitle="Google Stadia Release Announcement" postDesc="We have released the Google Stadia!" postNum={0} postDate="November 19th, 2019" />)
+    posts.push(<Post key={0} postTitle="Google Stadia Release Announcement" postDesc="We have released the Google Stadia!" postNum={0} postDate="November 19th, 2019" />)
 
-        for (let i = 1; i < 4; i++)
-            posts.push(<Post key={i} postTitle={"Update #" + i} postDesc="This is an update!" postNum={i} postDate={"August 1" + i + "th, 2021"} />)
+    for (let i = 1; i < 4; i++)
+        posts.push(<Post key={i} postTitle={"Update #" + i} postDesc="This is an update!" postNum={i} postDate={"August 1" + i + "th, 2021"} />)
 
-        posts.push(<Post key={4} postTitle="Google Stadia Will Be Discontinued" postNum={4} postDesc="We regret to announce that Google Stadia will be discontinued on January 18th, 2023." postDate="September 29th, 2022" />)
+    posts.push(<Post key={4} postTitle="Google Stadia Will Be Discontinued" postNum={4} postDesc="We regret to announce that Google Stadia will be discontinued on January 18th, 2023." postDate="September 29th, 2022" />)
 
-        return (
-            <div id="posts">
-                <div style={{ display: "inline" }}>
-                    <p>Filter by tag(s):</p>
-                    <input className="pill"></input>
+    return (
+        <div >
+        <div id="posts">
+            <div style={{ display: "inline" }}>
+                <p>Filter by tag(s):</p>
+                <input className="pill"></input>
+                <div id="post-btn">
+                    {create}
                 </div>
+            </div>
                 {posts}
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 class Post extends React.Component {
@@ -49,7 +50,9 @@ class Post extends React.Component {
         this.setState({ isShowingTicketForm: !this.state.isShowingTicketForm })
     }
 
+    
     render() {
+    
         let className = this.state.isShowingTickets ? "post-maximized" : "post card"
 
         let posts = document.getElementsByClassName("post")

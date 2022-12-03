@@ -17,7 +17,8 @@
 
 #overview,
 #posts,
-#members {
+#members,
+#edit {
     margin: 10px 100px;
 }
 
@@ -30,6 +31,31 @@
 #overview-body {
     display: block;
 }
+
+#edit-btn,
+#back-btn,
+#create-btn {
+    bottom: 10%;
+    position: fixed;
+}
+
+#post-btn {
+    display: flex;
+    justify-content: right;
+}
+
+#edit {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: larger;
+}
+
+input[type="text"], textarea {
+
+    background-color : #fff; 
+    padding: 10px;
+  }
 
 #posts {
     display: flex;
