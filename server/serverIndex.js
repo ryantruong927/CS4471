@@ -48,7 +48,6 @@ app.post("/register", (req,res)=> {
       request.addParameter('uname', TYPES.VarChar, username);
       request.addParameter('upass', TYPES.VarChar, password);
       request.addParameter('uemail', TYPES.VarChar, email);
-      console.log(request);
 
       connection.execSql(request);
 });
@@ -58,17 +57,16 @@ app.post('/login', (req,res) =>{
     const password = req.body.password;
     results = [];
     const q = "SELECT * FROM users WHERE userName = @uname AND password = @upass;";
-
     const request = new Request(q,
         (err) => {
           if (err) {
             console.error(err.message);
             connection.close();
           }
-          console.error("Worked: " + results);
           if(results.length > 0 ){
             res.json(results);
         }else{
+          console.log("Not working")
             res.send({message: "Invalid Credentials!"})
         }
         }
@@ -79,7 +77,6 @@ app.post('/login', (req,res) =>{
       request.on("row", columns => {
         results.push(columns);
       });
-
     connection.execSql(request); 
 
 })

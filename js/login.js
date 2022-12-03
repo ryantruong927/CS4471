@@ -18,6 +18,8 @@ class Page extends React.Component {
         this.setEmail = this.setEmail.bind(this)
         this.setLoginStat = this.setLoginStat.bind(this)
         this.register = this.register.bind(this)
+        this.login = this.login.bind(this)
+
     }
 
     setRegisterUser(registerUser) {
@@ -39,7 +41,7 @@ class Page extends React.Component {
         this.setState({ loginStat: loginStat });
     }
 
-    register  () {
+    register() {
         axios.post('http://localhost:4000/register', {
           username: this.state.registerUser,
           password: this.state.registerPassword, 
@@ -50,17 +52,19 @@ class Page extends React.Component {
       };
 
        login () {
-        Axios.post('http://localhost:8000/login', {
+        axios.post('http://localhost:4000/login', {
           username: this.state.loginUser,
           password: this.state.loginpassword, 
         }).then((response) => {
-          if(response.data.message){
+            if(response.data.message){
             this.setLoginStat(response.data.message)
           }else{
-            this.setLoginStat("Logged in as: " + response.data[0][1].value);
+            this.setLoginStat("Logged in as: " + response.data[0][0].value);
           }
         });
       };
+
+
     render() {
         return (
             <div className="App">
@@ -68,7 +72,7 @@ class Page extends React.Component {
                 <h1>Tickety</h1><br></br>
 
                 <h3>Register</h3>
-                <form id="login-form" >
+                <div id="login-form" >
                     <div className="login-form-item pill">
                         <i className="fa-solid fa-envelope"></i>    <input type="text" placeholder="Email" name="Email"onChange={(e)=> {this.setEmail(e.target.value)}}/>
                     </div>
@@ -79,10 +83,10 @@ class Page extends React.Component {
                         <i className="fa-solid fa-lock"></i>    <input type="text" placeholder="Password" name="password"onChange={(e)=> {this.setRegisterPassword(e.target.value)}}/>
                     </div>
                     <button className="pill" onClick={this.register} >Create Account</button>
-                </form><br></br>
+                </div><br></br>
 
                 <h3>Login</h3>
-                <form id="login-form" >
+                <div id="login-form" >
                     <div className="login-form-item pill">
                         <i className="fa-solid fa-user"></i>  <input type="text" placeholder="Username" name="userName" onChange={(e)=> {this.setLoginUser(e.target.value)}}/>
                     </div>
@@ -90,11 +94,10 @@ class Page extends React.Component {
                         <i className="fa-solid fa-lock"></i>  <input type="text" placeholder="Password" name="password" onChange={(e)=> {this.setLoginPassword(e.target.value)}}/>
                     </div>
                     <button onClick={this.login} className="pill">Sign In</button>
-                </form>
                 </div>
-        
-                <h1>{this.state.loginStat}</h1>
+                </div>
 
+                <h1>{this.state.loginStat}</h1>
             </div>
           )
     }
