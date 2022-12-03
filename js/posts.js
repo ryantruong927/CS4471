@@ -63,6 +63,9 @@ class Post extends React.Component {
             isShowingTicketForm: false,
             isShowingTickets: false
         }
+        this.state.tickets = this.state.tickets.sort(
+            (a, b) => { return a.upvotes - b.upvotes || a.id - b.id }
+        )
         this.changeTicketsView = this.changeTicketsView.bind(this)
         this.showTicketForm = this.showTicketForm.bind(this)
         this.addTicket = this.addTicket.bind(this)
@@ -94,6 +97,9 @@ class Post extends React.Component {
     addTicket(ticket) {
         ticket.id = this.state.tickets.length
         this.state.tickets.push(ticket)
+        this.state.tickets = this.state.tickets.sort(
+            (a, b) => { return a.upvotes - b.upvotes || a.id - b.id }
+        )
         this.showTicketForm()
     }
 
@@ -134,7 +140,7 @@ class Post extends React.Component {
                                 key={ticket.id}
                                 id={ticket.id}
                                 title={ticket.title}
-                                content={ticket.content}
+                                description={ticket.description}
                                 name={ticket.name}
                                 username={ticket.username}
                                 date={ticket.date}
