@@ -108,28 +108,6 @@ app.post("/companies", (req,res)=> {
     connection.execSql(request); 
 });
 
-app.post("/post", (req,res)=> {
-
-    const name = req.body.name;
-    const description = req.body.desc;
-    const tags = req.body.tags;
-    /*const query = "INSERT INTO posts (name, description, tags) VALUES (@uname, @udescription, @utags, '0')";*/
-
-    const request = new Request(query,
-        (err, rowCount) => {
-          if (err) {
-            console.error(err.message);
-          } 
-        }
-      );
-      request.addParameter('uname', TYPES.VarChar, name);
-      request.addParameter('udescription', TYPES.VarChar, description);
-      request.addParameter('utags', TYPES.VarChar, tags);
-      console.log(request);
-
-    connection.execSql(request);
-});
-
 app.post("/register", (req,res)=> {
 
     const username = req.body.username;

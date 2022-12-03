@@ -2,10 +2,10 @@
 
 function CreatePosts(props) {
 
-    var test = new createPost(props); 
+    var test = new createPost(props);
 
     let back = <button className="companybtn pill" onClick={() => props.onClick("posts")}><p>back</p></button>
-    let post = <button className="companybtn pill" onClick={() => test.create()}><p>Create Post</p></button>
+    let post = <button className="companybtn pill" onClick={() => test.create(props.id)}><p>Create Post</p></button>
 
     const nameField = <div className="field">
         <label htmlFor="title">Name: </label>
@@ -45,19 +45,25 @@ class createPost extends React.Component {
         this.create = this.create.bind(this)
     }
 
-    create() {
+    create(companyId) {
         var name = document.getElementById("name").value;
         var description = document.getElementById("desc").value;
         var tags = document.getElementById('tags').value;
 
-        
-        axios.post('http://localhost:4000/post', {
-          name: name,
-          description: description, 
-          tags: tags
-        }).then((response) => {
-          console.log(response);
+        console.log({
+            name: name,
+            description: description,
+            companyId: companyId
+            tags: tags
         })
+
+        // axios.post('http://localhost:4000/post', {
+        //   name: name,
+        //   description: description,
+        //   tags: tags
+        // }).then((response) => {
+        //   console.log(response);
+        // })
       };
 
     render() {

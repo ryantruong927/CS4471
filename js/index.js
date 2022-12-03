@@ -41,7 +41,7 @@ class Page extends React.Component {
                     <p></p>
                     <h2>Companies:</h2>
                     <a className="pill" href="company.html">Google</a>
-                    {this.state.companies.map((i)=> <a className="pill" href={i[0]}>{i[1]}</a>)}
+                    {this.state.companies.map((i)=> <a key={i[0]} className="pill" href={i[0]}>{i[1]}</a>)}
 
                 </div>
 

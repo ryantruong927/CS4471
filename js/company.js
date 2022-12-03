@@ -58,7 +58,7 @@ class Page extends React.Component {
                 tab = <Manage selected={this.state.selected} onClick={this.updateTab}/>
                 break 
             case "createpost":
-                tab = <CreatePosts selected={this.state.selected} onClick={this.updateTab}/>
+                tab = <CreatePosts selected={this.state.selected} id={this.state.id} onClick={this.updateTab}/>
                 break 
         }
 
