@@ -75,6 +75,7 @@ app.post("/companies", (req,res)=> {
 
       request.on("row", columns => {
         results.push(columns);
+        console.error(columns)
       });
 
     connection.execSql(request); 

@@ -15,20 +15,21 @@ class Page extends React.Component {
     }
 
     getcompanies () {
-        let test = []
+        let company = []
         axios.post('http://localhost:4000/companies', {
         }).then((response) => {
             for (var i = 0; i < response.data.length; i++) { 
                 console.error(response.data[i][1]); 
-                test[i] = response.data[i][1].value
+                console.error(response.data[i][0]); 
+                company[i] = ["company.html?id=" + response.data[i][0].value, response.data[i][1].value]
             }
-            this.setcompany(test);
+            this.setcompany(company);
         });
     }
 
-    
     render() {
         let createCompany = <button className="pill" onClick={() => window.location.href="createcompany.html"}><p>Create Company</p></button>
+        var link
         return (
             <div>
                 <br></br>
@@ -40,8 +41,8 @@ class Page extends React.Component {
                     <p></p>
                     <h2>Companies:</h2>
                     <a className="pill" href="company.html">Google</a>
-                    {this.state.companies.map((item)=><a key={item} className="pill" href="company.html">{item}</a>)}
-                    
+                    {this.state.companies.map((i)=> <a className="pill" href={i[0]}>{i[1]}</a>)}
+
                 </div>
 
                 <br/>

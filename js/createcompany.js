@@ -43,6 +43,7 @@ class CreateCompany extends React.Component {
         }).then((response) => {
             console.log(response);
         })
+        window.location.href="index.html"
     }
 
     render() {
