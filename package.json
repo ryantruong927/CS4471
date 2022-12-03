@@ -1,0 +1,31 @@
+{
+  "name": "cs4471",
+  "version": "1.0.0",
+  "description": "Ticket management system project for CS4471.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryantruong927/CS4471.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryantruong927/CS4471/issues"
+  },
+  "homepage": "https://github.com/ryantruong927/CS4471#readme",
+  "dependencies": {
+    "axios": "^1.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tedious": "^15.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
