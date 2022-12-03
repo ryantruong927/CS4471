@@ -22,6 +22,12 @@ button:hover {
 }
 
 #login-form {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#reg-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
