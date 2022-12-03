@@ -58,7 +58,6 @@ app.post("/register", (req,res)=> {
       connection.execSql(request);
 });
 
-
 app.post('/getuser', (req,res) =>{
   const username = req.body.username;
   results = [];
@@ -162,6 +161,135 @@ app.post('/login', (req,res) =>{
     connection.execSql(request); 
 
 })
+
+
+app.post("/new_company", (req,res)=> {
+
+  const query = `INSERT INTO Company (CompanyID, Name, Description, Email) VALUES (8, 'CName', 'CDesc', 'cname@mail.com');`;
+
+  const request = new Request(query,
+    (err, rowCount) => {
+      if (err) {
+        console.error(err.message);
+      }
+    }
+  );
+
+  connection.execSql(request);
+});
+
+app.post("/companies", (req,res)=> {
+
+  results = [];
+  const q = "SELECT * FROM Company;";
+
+  const request = new Request(q,
+    (err) => {
+      if (err) {
+        console.error(err.message);
+        connection.close();
+      }
+
+      if(results.length > 0 ){
+        res.json(results);
+      } else{
+        res.send({message: "Companies not found!"})
+      }
+    }
+  );
+
+  request.on("row", columns => {
+    results.push(columns);
+  });
+
+  connection.execSql(request);
+});
+
+
+app.post("/new_post", (req,res)=> {
+
+  const query = `INSERT INTO Post (PostID, CompanyID, Name, Description, Date) VALUES (2, 8, 'PostName', 'Post_desc', '12-03-2022');`;
+
+  const request = new Request(query,
+    (err, rowCount) => {
+      if (err) {
+        console.error(err.message);
+      }
+    }
+  );
+
+  connection.execSql(request);
+});
+
+app.post("/posts", (req,res)=> {
+
+  results = [];
+  const q = "SELECT * FROM Post;";
+
+  const request = new Request(q,
+    (err) => {
+      if (err) {
+        console.error(err.message);
+        connection.close();
+      }
+
+      if(results.length > 0 ){
+        res.json(results);
+      } else{
+        res.send({message: "Posts not found!"})
+      }
+    }
+  );
+
+  request.on("row", columns => {
+    results.push(columns);
+  });
+
+  connection.execSql(request);
+});
+
+
+app.post("/new_ticket", (req,res)=> {
+
+  const query = `INSERT INTO Ticket (TicketID, PostID, CompanyID, Name, Description, Status, Date, Creator) VALUES (14, 2, 8, 'TName', 'TDesc', 0, '12-03-2022', 'ME');`;
+  const request = new Request(query,
+    (err, rowCount) => {
+      if (err) {
+        console.error(err.message);
+      }
+    }
+  );
+
+  connection.execSql(request);
+});
+
+app.post("/tickets", (req,res)=> {
+
+  results = [];
+  const q = "SELECT * FROM Ticket;";
+
+  const request = new Request(q,
+    (err) => {
+      if (err) {
+        console.error(err.message);
+        connection.close();
+      }
+
+      if(results.length > 0 ){
+        res.json(results);
+      } else{
+        res.send({message: "Invalid Credentials!"})
+      }
+    }
+  );
+
+  request.on("row", columns => {
+    results.push(columns);
+  });
+
+  connection.execSql(request);
+});
+
 
 app.listen(4000, () => {
     console.log('running on port 4000');
