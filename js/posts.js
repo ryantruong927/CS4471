@@ -4,12 +4,12 @@ function Posts(props) {
     let posts = []
     let create = <button className="companybtn pill" onClick={() => props.onClick("createpost")}><p>Create Post</p></button>
 
-    posts.push(<Post key={0} title="Google Stadia Release Announcement" desc="We have released the Google Stadia!" id={0} date="November 19th, 2019" />)
+    posts.push(<Post key={0} title="Google Stadia Release Announcement" description="We have released the Google Stadia!" id={0} date="November 19th, 2019" />)
 
     for (let i = 1; i < 4; i++)
-        posts.push(<Post key={i} title={"Update #" + i} desc="This is an update!" id={i} date={"August 1" + i + "th, 2021"} />)
+        posts.push(<Post key={i} title={"Update #" + i} description="This is an update!" id={i} date={"August 1" + i + "th, 2021"} />)
 
-    posts.push(<Post key={4} title="Google Stadia Will Be Discontinued" id={4} desc="We regret to announce that Google Stadia will be discontinued on January 18th, 2023." date="September 29th, 2022" />)
+    posts.push(<Post key={4} title="Google Stadia Will Be Discontinued" id={4} description="We regret to announce that Google Stadia will be discontinued on January 18th, 2023." date="September 29th, 2022" />)
 
     return (
         <div >
@@ -64,7 +64,7 @@ class Post extends React.Component {
             isShowingTickets: false
         }
         this.state.tickets = this.state.tickets.sort(
-            (a, b) => { return a.upvotes - b.upvotes || a.id - b.id }
+            (a, b) => { return (a.upvotes - a.downvotes) - (b.upvotes - b.downvotes) || a.id - b.id }
         )
         this.changeTicketsView = this.changeTicketsView.bind(this)
         this.showTicketForm = this.showTicketForm.bind(this)
@@ -97,10 +97,8 @@ class Post extends React.Component {
     addTicket(ticket) {
         ticket.id = this.state.tickets.length
         this.state.tickets.push(ticket)
-        this.state.tickets = this.state.tickets.sort(
-            (a, b) => { return a.upvotes - b.upvotes || a.id - b.id }
-        )
         this.showTicketForm()
+        this.forceUpdate()
     }
 
     render() {
@@ -116,7 +114,7 @@ class Post extends React.Component {
                     <div className="tag">Product</div>
                     <div className="tag">Update</div>
                 </div>
-                <p>{this.state.desc}</p>
+                <p>{this.state.description}</p>
                 <div id="post-nav">
                     {
                         this.state.isShowingTickets &&
@@ -212,7 +210,7 @@ class TicketForm extends React.Component {
                     ></textarea>
                 </div>
                 <div className="buttons">
-                    <button className="custom-btn purple pill" id="feedback-btn" onClick={() => {
+                    <button className="custom-btn pill" id="feedback-btn" onClick={() => {
                         if (this.state.title === '' || this.state.description === '' || this.state.type === '')
                             return
                         let ticket = {
@@ -227,7 +225,9 @@ class TicketForm extends React.Component {
                             downvotes: 0
                         }
                         this.props.onClick(ticket)
-                    }}>Add Feedback</button>
+                    }
+                    }
+                    >Add Feedback</button>
                 </div>
             </div>
         )

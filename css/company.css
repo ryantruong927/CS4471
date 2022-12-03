@@ -173,7 +173,7 @@ textarea {
     cursor: pointer;
 }
 
-.ticket .ticket-author {
+.ticket-author {
     font-size: smaller;
     color: dimgrey;
 }
@@ -231,6 +231,11 @@ textarea,
     margin-top: 30px;
 }
 
+.comments {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
 .comment-space {
     padding: 0 10%;
 }
@@ -249,8 +254,25 @@ textarea,
     padding: 24px;
 }
 
-.comments {
-    margin-bottom: 25px;
+.post-comment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.post-comment textarea {
+    background-color: #f7f8fd;
+}
+
+.post-comment div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-btn:hover,
+.comment-btn:focus {
+    background-color: #f7bd67;
+    border: #f7bd67 2px solid;
 }
 
 .ticket-comment {
