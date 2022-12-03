@@ -40,20 +40,22 @@ class Post extends React.Component {
                 {
                     id: 0,
                     title: "Huge Bug",
-                    content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel.",
+                    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel.",
                     name: "Ryan Truong",
                     username: "ryantruong927",
                     date: "10/11/2022",
+                    tag: "Bug",
                     upvotes: 10,
                     downvotes: 250,
                 },
                 {
                     id: 1,
                     title: "Little Bug",
-                    content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel.",
+                    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel.",
                     name: "Brian Wrong",
                     username: "ryantruong927",
                     date: "10/11/2022",
+                    tag: "Bug",
                     upvotes: 235,
                     downvotes: 4,
                 }
@@ -63,6 +65,7 @@ class Post extends React.Component {
         }
         this.changeTicketsView = this.changeTicketsView.bind(this)
         this.showTicketForm = this.showTicketForm.bind(this)
+        this.addTicket = this.addTicket.bind(this)
     }
 
     changeTicketsView() {
@@ -73,9 +76,6 @@ class Post extends React.Component {
 
         let posts = document.getElementsByClassName("post")
         for (let i = 0; i < posts.length; i++) {
-            console.log(posts[i].id)
-            console.log("p" + this.state.id)
-            console.log(posts[i].id != ("p" + this.state.id))
             if (!this.state.isShowingTickets) {
                 if (posts[i].id != ("p" + this.state.id))
                     posts[i].style.display = "none"
@@ -91,6 +91,11 @@ class Post extends React.Component {
         this.setState({ isShowingTicketForm: !this.state.isShowingTicketForm })
     }
 
+    addTicket(ticket) {
+        ticket.id = this.state.tickets.length
+        this.state.tickets.push(ticket)
+        this.showTicketForm()
+    }
 
     render() {
         let className = this.state.isShowingTickets ? "post-maximized" : "post card"
@@ -119,15 +124,104 @@ class Post extends React.Component {
                 </div>
                 {
                     this.state.isShowingTicketForm &&
-                    <TicketForm title={this.props.title} />
+                    <TicketForm onClick={this.addTicket} />
                 }
                 <div id="tickets">
                     {
                         this.state.isShowingTickets &&
                         this.state.tickets.map(
-                            ticket => <Ticket key={ticket.id} id={ticket.id} title={ticket.title} content={ticket.content} name={ticket.name} username={ticket.username} date={ticket.date} upvotes={ticket.upvotes} downvotes={ticket.downvotes} />
+                            ticket => <Ticket
+                                key={ticket.id}
+                                id={ticket.id}
+                                title={ticket.title}
+                                content={ticket.content}
+                                name={ticket.name}
+                                username={ticket.username}
+                                date={ticket.date}
+                                tag={ticket.tag}
+                                upvotes={ticket.upvotes}
+                                downvotes={ticket.downvotes}
+                            />
                         )
                     }
+                </div>
+            </div>
+        )
+    }
+}
+
+class TicketForm extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: "",
+            description: "",
+            tag: "Bug"
+        }
+        this.setTitle = this.setTitle.bind(this)
+        this.setTag = this.setTag.bind(this)
+        this.setDescription = this.setDescription.bind(this)
+    }
+
+    setTitle(title) {
+        this.setState({ title: title });
+    }
+
+    setTag(tag) {
+        this.setState({ tag: tag });
+    }
+
+    setDescription(description) {
+        this.setState({ description: description });
+    }
+
+    render() {
+        return (
+            <div className="card" id="ticket-form">
+                <div className="field">
+                    <label htmlFor="ticket-title">Ticket Title</label>
+                    <p>Add a short, descriptive headline</p>
+                    <input
+                        type="text" className="pill" id="ticket-title" placeholder="Add a title" autoComplete="off"
+                        value={this.state.title}
+                        onChange={e => this.setTitle(e.target.value)}
+                    />
+                </div>
+                <div className="field">
+                    <label htmlFor="ticket-type">Tag</label>
+                    <p>Add a tag to help identify the type of ticket</p>
+                    <input
+                        type="text" className="pill" id="ticket-tag" placeholder="Add a title" autoComplete="off"
+                        value={this.state.tag}
+                        onChange={e => this.setTag(e.target.value)}
+                    />
+                </div>
+                <div className="field">
+                    <label htmlFor="ticket-description">Ticket Description</label>
+                    <p>Include any specific comments on what should be improved, added, etc.</p>
+                    <textarea
+                        className="pill"
+                        id="ticket-description" rows={3}
+                        value={this.state.description} placeholder="Add a description" onChange={e => this.setDescription(e.target.value)}
+                    ></textarea>
+                </div>
+                <div className="buttons">
+                    <button className="custom-btn purple pill" id="feedback-btn" onClick={() => {
+                        if (this.state.title === '' || this.state.description === '' || this.state.type === '')
+                            return
+                        let ticket = {
+                            id: 0,
+                            title: this.state.title,
+                            description: this.state.description,
+                            name: "Ryan Truong",
+                            username: "ryantruong927",
+                            date: "03/12/22",
+                            tag: this.state.tag,
+                            upvotes: 0,
+                            downvotes: 0
+                        }
+                        this.props.onClick(ticket)
+                    }}>Add Feedback</button>
                 </div>
             </div>
         )

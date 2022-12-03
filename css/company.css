@@ -82,12 +82,13 @@ textarea {
 
 #tickets {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 10px;
     transition: 0.2s;
 }
 
-#ticket-nav {
+.ticket-nav,
+.comment-number {
     align-self: flex-end;
     width: fit-content;
 }
@@ -175,10 +176,6 @@ textarea {
     color: dimgrey;
 }
 
-.ticket .comment-number {
-    cursor: pointer;
-}
-
 .ticket .ticket-type {
     display: inline-block;
     font-weight: 600;
@@ -220,6 +217,10 @@ textarea,
 
 .ticket-form .custom-btn {
     margin-right: 12px;
+}
+
+.comment-number {
+    padding-right: 8px;
 }
 
 .tickets-page-single .ticket-description,

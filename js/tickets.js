@@ -20,10 +20,11 @@ class Ticket extends React.Component {
         this.state = {
             id: props.id,
             title: props.title,
-            content: props.content,
+            description: props.description,
             name: props.name,
             username: props.username,
             date: props.date,
+            tag: props.tag,
             upvotes: props.upvotes,
             downvotes: props.downvotes,
             comments: [
@@ -31,13 +32,13 @@ class Ticket extends React.Component {
                     id: 0,
                     name: "Ryan Truong",
                     username: "ryantruong927",
-                    content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel."
+                    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel."
                 },
                 {
                     id: 1,
                     name: "Brian Wrong",
                     username: "ryantruong927",
-                    content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel."
+                    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel."
                 }
             ],
             isShowingComments: false
@@ -96,17 +97,15 @@ class Ticket extends React.Component {
                             <h3 style={{ marginBottom: 0 }}>{this.state.title}</h3>
                             <span className="ticket-author">by {this.state.name} (@{this.state.username}), on {this.state.date}</span>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel.</p>
-                            <div className="ticket-type">Type</div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="comment-number">
-                            <span>📥</span>
-                            <span>{this.state.comments.length}</span>
+                            <div className="ticket-type">{this.state.tag}</div>
                         </div>
                     </div>
                 </div>
-                <div id="ticket-nav">
+                <div className="comment-number">
+                    <span>📥</span>
+                    <span>{this.state.comments.length}</span>
+                </div>
+                <div className="ticket-nav">
                     <button className="more" onClick={this.changeCommentsView}>
                         <i className="fa-solid fa-ellipsis fa-3x moreicon"></i>
                     </button>
@@ -114,132 +113,10 @@ class Ticket extends React.Component {
                 {
                     this.state.isShowingComments &&
                     this.state.comments.map(
-                        comment => <Comment key={comment.id} name={comment.name} username={comment.username} content={comment.content} />
+                        comment => <Comment key={comment.id} name={comment.name} username={comment.username} description={comment.description} />
                     )
                 }
             </div >
         )
     }
-}
-
-class TicketForm extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
-    render() {
-        return (
-            <div className="card" id="ticket-form">
-                <TitleField title={this.props.ticketTitle} />
-                <TypeField />
-                <DescriptionField description="" />
-                <Buttons />
-            </div>
-        )
-    }
-
-}
-
-class TitleField extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { title: "" }
-        this.setTitle = this.setTitle.bind(this)
-    }
-
-    setTitle(title) {
-        this.setState({ title: title });
-    }
-
-    render() {
-        return (
-            <div className="field">
-                <label htmlFor="ticket-title">Ticket Title</label>
-                <p>Add a short, descriptive headline</p>
-                <input
-                    type="text" className="pill" id="ticket-title" placeholder="Add a title" autoComplete="off"
-                    value={this.props.title}
-                    onChange={e => this.setTitle(e.target.value)}
-                />
-            </div>
-        )
-    }
-
-}
-
-class TypeField extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { type: "Feature" }
-        this.setType = this.setType.bind(this)
-    }
-
-    setType(type) {
-        this.setState({ type: type });
-    }
-
-    render() {
-        const types = ["Feature", "UI/UX", "Enhancement", "Bug"]
-
-        return (
-            <div className="field">
-                <label htmlFor="ticket-type">Category</label>
-                <p>Choose a category for your feedback</p>
-                <select id="ticket-type" value={this.state.description} onChange={e => this.setType(e.target.value)}>
-                    {types.map(i => <option key={i} value={i}>{i}</option>)}
-                </select>
-            </div>
-        )
-    }
-
-}
-
-class DescriptionField extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { description: "" }
-        this.setDescription = this.setDescription.bind(this)
-    }
-
-    setDescription(description) {
-        this.setState({ description: description });
-    }
-
-    render() {
-        return (
-            <div className="field">
-                <label htmlFor="ticket-description">Ticket Description</label>
-                <p>Include any specific comments on what should be improved, added, etc.</p>
-                <textarea
-                    className="pill"
-                    id="ticket-description" rows={3}
-                    value={this.state.description} placeholder="Add a description" onChange={e => this.setDescription(e.target.value)}
-                ></textarea>
-            </div>
-        )
-    }
-
-}
-
-function Buttons(props) {
-    return (
-        <div className="buttons">
-            <button className="custom-btn purple pill" id="feedback-btn" onClick={() => {
-                if (title === '' || description === '' || type === '') return
-                createTicket({ title: title, description: description, type: type })
-                setTitle("")
-                setDescription("")
-                setType("Feature")
-            }}>Add Feedback</button>
-        </div>
-    )
-}
-
-function TicketsFormPage(props) {
-    return (
-        <div className="tickets-form-page">
-            <button className="custom-btn" onClick={() => doAction('open', `tickets_page null`)}>Go back</button>
-            <TicketForm createTicket={create} />
-        </div>
-    )
 }

@@ -1,14 +1,5 @@
 "use strict"
 
-function Comments(props) {
-    return (
-        <div id="comments">
-            <Comment name="Ryan" text="Isn't that obvious? Downvoted." />
-            <Comment name="Brian" text="^ This guy must be fun at parties" />
-        </div>
-    )
-}
-
 class Comment extends React.Component {
     constructor(props) {
         super(props)
@@ -23,7 +14,7 @@ class Comment extends React.Component {
                 </div>
                 <div className="description">
                     <div>
-                        <p>{this.props.content}</p>
+                        <p>{this.props.description}</p>
                     </div>
                 </div>
             </div>
