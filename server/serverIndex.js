@@ -163,6 +163,21 @@ app.post('/login', (req,res) =>{
 })
 
 
+app.post("/reset_companies", (req,res)=> {
+
+    const query = `DELETE FROM Company;`;
+
+    const request = new Request(query,
+        (err, rowCount) => {
+            if (err) {
+                console.error(err.message);
+            }
+        }
+    );
+
+    connection.execSql(request);
+});
+
 app.post("/new_company", (req,res)=> {
 
   const query = `INSERT INTO Company (CompanyID, Name, Description, Email) VALUES (8, 'CName', 'CDesc', 'cname@mail.com');`;
@@ -205,6 +220,21 @@ app.post("/companies", (req,res)=> {
   connection.execSql(request);
 });
 
+
+app.post("/reset_posts", (req,res)=> {
+
+    const query = `DELETE FROM Post;`;
+
+    const request = new Request(query,
+        (err, rowCount) => {
+            if (err) {
+                console.error(err.message);
+            }
+        }
+    );
+
+    connection.execSql(request);
+});
 
 app.post("/new_post", (req,res)=> {
 
@@ -249,6 +279,21 @@ app.post("/posts", (req,res)=> {
 });
 
 
+app.post("/reset_tickets", (req,res)=> {
+
+    const query = `DELETE FROM Ticket;`;
+
+    const request = new Request(query,
+        (err, rowCount) => {
+            if (err) {
+                console.error(err.message);
+            }
+        }
+    );
+
+    connection.execSql(request);
+});
+
 app.post("/new_ticket", (req,res)=> {
 
   const query = `INSERT INTO Ticket (TicketID, PostID, CompanyID, Name, Description, Status, Date, Creator) VALUES (14, 2, 8, 'TName', 'TDesc', 0, '12-03-2022', 'ME');`;
@@ -278,7 +323,7 @@ app.post("/tickets", (req,res)=> {
       if(results.length > 0 ){
         res.json(results);
       } else{
-        res.send({message: "Invalid Credentials!"})
+        res.send({message: "No rows found!"})
       }
     }
   );
