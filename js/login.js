@@ -19,6 +19,7 @@ class Page extends React.Component {
         this.setLoginStat = this.setLoginStat.bind(this)
         this.register = this.register.bind(this)
         this.login = this.login.bind(this)
+        this.logout = this.logout.bind(this)
 
     }
 
@@ -59,11 +60,16 @@ class Page extends React.Component {
             if(response.data.message){
             this.setLoginStat(response.data.message)
           }else{
-            this.setLoginStat("Logged in as: " + response.data[0][0].value);
+            Cookies.set("loggedIn", response.data[0][0].value, { expires: 1 });
+            this.setLoginStat(response.data[0][0].value);
+            window.location.href='index.html';
           }
         });
       };
 
+      logout () {
+        Cookies.remove("loggedIn");
+      };
 
     render() {
         return (
@@ -95,6 +101,8 @@ class Page extends React.Component {
                     </div>
                     <button onClick={this.login} className="pill">Sign In</button>
                 </div>
+                <button onClick={this.logout} className="pill"> Logout</button>
+
                 </div>
 
                 <h1>{this.state.loginStat}</h1>

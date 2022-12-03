@@ -1,10 +1,12 @@
 const express = require ("express");
+const Axios = require('axios');
 const app = express();
 const cors = require("cors");
 const { Connection, Request } = require("tedious");
 var TYPES = require("tedious").TYPES
 app.use(express.json());
 app.use(cors());
+
 
 const configuration = {
     authentication: {
@@ -36,6 +38,7 @@ app.post("/register", (req,res)=> {
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
+
     const query = "INSERT INTO users (UserName, password, Email, Reputation) VALUES (@uname, @upass, @uemail, '0')";
 
     const request = new Request(query,
@@ -52,14 +55,16 @@ app.post("/register", (req,res)=> {
       connection.execSql(request);
 });
 
+
 app.post('/login', (req,res) =>{
     const username = req.body.username;
     const password = req.body.password;
     results = [];
+ //   const q = "SELECT * FROM users;";
     const q = "SELECT * FROM users WHERE userName = @uname AND password = @upass;";
     const request = new Request(q,
         (err) => {
-          if (err) {
+          if (err) { 
             console.error(err.message);
             connection.close();
           }
