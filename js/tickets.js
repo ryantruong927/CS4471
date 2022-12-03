@@ -18,24 +18,33 @@ class Ticket extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            author: {
-                username: 'mcreus',
-                date: '12/03/2022'
-            },
-            upvotes: 0,
-            downvotes: 0,
-            isShowingComments: false,
+            id: props.id,
+            title: props.title,
+            content: props.content,
+            name: props.name,
+            username: props.username,
+            date: props.date,
+            upvotes: props.upvotes,
+            downvotes: props.downvotes,
             comments: [
                 {
-                    id: 1,
+                    id: 0,
                     name: "Ryan Truong",
                     username: "ryantruong927",
                     content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel."
+                },
+                {
+                    id: 1,
+                    name: "Brian Wrong",
+                    username: "ryantruong927",
+                    content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel."
                 }
-            ]
+            ],
+            isShowingComments: false
         }
         this.upvote = this.upvote.bind(this)
         this.downvote = this.downvote.bind(this)
+        this.changeCommentsView = this.changeCommentsView.bind(this)
     }
 
     upvote() {
@@ -46,13 +55,29 @@ class Ticket extends React.Component {
         this.setState({ downvotes: this.state.downvotes + 1 })
     }
 
+    changeCommentsView() {
+        this.setState({ isShowingComments: !this.state.isShowingComments })
+
+        let tickets = document.getElementsByClassName("ticket-container")
+        for (let i = 0; i < tickets.length; i++) {
+            if (!this.state.isShowingComments) {
+                if (tickets[i].id != ("t" + this.state.id))
+                    tickets[i].style.display = "none"
+            }
+            else {
+                tickets[i].style.display = "flex"
+            }
+        }
+    }
+
     addComment() {
 
     }
 
     render() {
+        let id = "t" + this.state.id
         return (
-            <div id="ticket-container">
+            <div className="ticket-container" id={id}>
                 <div className="ticket">
                     <div className="col">
                         <div className="votes">
@@ -68,8 +93,8 @@ class Ticket extends React.Component {
                     </div>
                     <div className="col">
                         <div className="ticket-body">
-                            <span className="ticket-author">By @{this.state.author.username}, on {this.state.author.date}</span>
-                            <h3>Ticket #{this.props.ticketNum}</h3>
+                            <h3 style={{ marginBottom: 0 }}>{this.state.title}</h3>
+                            <span className="ticket-author">by {this.state.name} (@{this.state.username}), on {this.state.date}</span>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel.</p>
                             <div className="ticket-type">Type</div>
                         </div>
@@ -81,8 +106,18 @@ class Ticket extends React.Component {
                         </div>
                     </div>
                 </div>
-                {this.state.comments.map(comment => <Comment key={comment.id} name={comment.name} username={comment.username} content={comment.content} />)}
-            </div>
+                <div id="ticket-nav">
+                    <button className="more" onClick={this.changeCommentsView}>
+                        <i className="fa-solid fa-ellipsis fa-3x moreicon"></i>
+                    </button>
+                </div>
+                {
+                    this.state.isShowingComments &&
+                    this.state.comments.map(
+                        comment => <Comment key={comment.id} name={comment.name} username={comment.username} content={comment.content} />
+                    )
+                }
+            </div >
         )
     }
 }
@@ -95,7 +130,7 @@ class TicketForm extends React.Component {
     render() {
         return (
             <div className="card" id="ticket-form">
-                <TitleField title={this.props.postTitle} />
+                <TitleField title={this.props.ticketTitle} />
                 <TypeField />
                 <DescriptionField description="" />
                 <Buttons />

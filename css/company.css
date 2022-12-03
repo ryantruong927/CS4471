@@ -51,11 +51,12 @@
     font-size: larger;
 }
 
-input[type="text"], textarea {
+input[type="text"],
+textarea {
 
-    background-color : #fff; 
+    background-color: #fff;
     padding: 10px;
-  }
+}
 
 #posts {
     display: flex;
@@ -83,6 +84,12 @@ input[type="text"], textarea {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    transition: 0.2s;
+}
+
+#ticket-nav {
+    align-self: flex-end;
+    width: fit-content;
 }
 
 .ticket-list {
@@ -97,16 +104,21 @@ input[type="text"], textarea {
     margin-bottom: 25px;
 }
 
-#ticket-container {
+.ticket-container {
+    display: flex;
+    flex-direction: column;
     background-color: white;
     border-radius: 8px;
     padding: 24px;
+    padding-bottom: 0;
+    transition: 0.2s;
 }
 
 .ticket {
     display: grid;
     grid-template-columns: 1fr 13fr 1fr;
     column-gap: 25px;
+    transition: 0.2s;
 }
 
 .ticket .col:last-child {
