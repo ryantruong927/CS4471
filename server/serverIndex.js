@@ -36,7 +36,7 @@ app.post("/company", (req,res)=> {
     const name = req.body.name;
     const description = req.body.description;
     const email = req.body.email;
-    const query = "INSERT INTO company (name, description, email, CompanyID) VALUES (@uname, @udescription, @uemail, '0')";
+    const query = "INSERT INTO company (name, description, email, CompanyID) VALUES (@uname, @udescription, @uemail, '1')";
 
     const request = new Request(query,
         (err, rowCount) => {
@@ -53,6 +53,34 @@ app.post("/company", (req,res)=> {
     connection.execSql(request);
 });
 
+app.post("/getcompany", (req,res)=> {
+
+  results = [];
+  const id = req.body.id;
+  const query = "SELECT * FROM company WHERE CompanyID=@uid";
+
+  const request = new Request(query,
+    (err) => {
+      if (err) {
+        console.error(err.message);
+      }
+      console.error("Worked: " + results);
+      if(results.length > 0 ){
+        res.json(results);
+    }else{
+        res.send({message: "No Companies"})
+    }
+    }
+  );
+    request.addParameter('uid', TYPES.Int, id);
+    request.on("row", columns => {
+      results.push(columns);
+      console.log(columns)
+    });
+
+  connection.execSql(request); 
+});
+
 app.post("/companies", (req,res)=> {
 
     results = [];
@@ -62,7 +90,6 @@ app.post("/companies", (req,res)=> {
         (err) => {
           if (err) {
             console.error(err.message);
-            connection.close();
           }
           console.error("Worked: " + results);
           if(results.length > 0 ){
