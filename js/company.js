@@ -4,12 +4,18 @@ class Page extends React.Component {
     constructor(props) {
         super(props)
 
+        let id = window.location.href.split("id=")[1]
         let page = window.location.href.split("#")[1]
         if (window.location.href.split("#")[1] == undefined)
             page = "overview"
+
         this.state = {
             url: window.location.href.split("#"),
-            selected: page
+            selected: page,
+            id: "test",
+            name: "",
+            description: "",
+            email: ""
         }
         this.updateTab = this.updateTab.bind(this)
     }
@@ -90,7 +96,7 @@ class Company extends React.Component {
         }
         return (
             <div id="company-header">
-                <h1>Google</h1>
+                <h1>google</h1>
                 <div id="company-btns">
                     {buttons}
                 </div>
