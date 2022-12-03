@@ -3,6 +3,7 @@
 class Page extends React.Component {
     constructor(props) {
         super(props)
+        this.companies = this.companies.bind(this)
     }
 
     render() {
@@ -18,6 +19,7 @@ class Page extends React.Component {
 
                     <h2>Test Company:</h2>
                     <a className="pill" href="company.html">Google</a>
+                    
                 </div>
                 <div id="create-btn">
                     {createCompany}
@@ -25,6 +27,15 @@ class Page extends React.Component {
             </div>
         )
     }
+    /*
+    companies() {
+        var companies = []
+        axios.post('http://localhost:4000/companies', {
+        }).then((response) => {
+            companies=response
+        }) 
+        return(<a className="pill" href="company.html">{companies.data[0].value}</a>);
+    }*/
 }
 
 const root = ReactDOM.createRoot(document.getElementById("page"));

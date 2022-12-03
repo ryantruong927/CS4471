@@ -16,7 +16,7 @@ class Page extends React.Component {
                     <p>Tickety is a ticketing platform that will allow users to communicate with the company through tickets they create.</p>
                     <p>Users will be able to comment, reply to other people's comments, and upvote the tickets they like the most.</p>
                 </div>
-                <Fourm/>
+                <Fourm />
                 <div id="create-btn">
                     {back}
                 </div>
@@ -28,25 +28,40 @@ class Page extends React.Component {
 class CreateCompany extends React.Component {
     constructor(props) {
         super(props)
+        this.create = this.create.bind(this)
     }
 
+    create() {
+        var name = document.getElementById("name").value;
+        var description = document.getElementById("description").value;
+        var email = document.getElementById('email').value;
+
+        axios.post('http://localhost:4000/company', {
+          name: name,
+          description: description, 
+          email: email
+        }).then((response) => {
+          console.log(response);
+        })
+      };
+
     render() {
-        {Create}
     }
 }
 
 function Fourm(props) {
 
-    let create = <button className="companybtn pill"><p>Create</p></button>
+    var test = new CreateCompany(props); 
+    let create = <button className="companybtn pill" onClick={() => test.create()}><p>Create</p></button>
 
     const titleField = <div className="field">
         <label htmlFor="title">Company Name: </label>
-        <input type="text" id="title" autoComplete="off" defaultValue={window.companyName}/>
+        <input type="text" id="name" autoComplete="off" defaultValue={window.companyName}/>
     </div>
 
     const descriptionField = <div className="field">
         <label htmlFor="desc">Company Description: </label>
-        <input type="text" id="desc" autoComplete="off" defaultValue={window.companyDescription}/>
+        <input type="text" id="description" autoComplete="off" defaultValue={window.companyDescription}/>
     </div>
 
     const emailField = <div className="field">
@@ -54,24 +69,19 @@ function Fourm(props) {
         <input type="text" id="email" autoComplete="off" defaultValue={window.companyEmail}/>
     </div>
 
-    const phoneFeild = <div className="field">
-        <label htmlFor="phone">Contact Phone Number: </label>
-        <input type="text" id="phone" autoComplete="off" defaultValue={window.companyPhone}/>
-    </div>
-
     return (
+
         <div id="edit">
             <br></br>
             { titleField }
             { descriptionField }
             { emailField }
-            { phoneFeild }
             <br></br>
-        <div id="save-btn">
-            {create}
+            <div id="save-btn">
+                {create}
+            </div>
         </div>
-        </div >
     )
 }
 const root = ReactDOM.createRoot(document.getElementById("page"));
-root.render(<Page />)
+root.render(<Page />);
