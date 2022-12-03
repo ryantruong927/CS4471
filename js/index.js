@@ -33,7 +33,7 @@ class Page extends React.Component {
         return (
             <div>
                 <br></br>
-                <Navbar name="Sign In" />
+                <Navbar name="Log Out" />
                 <div id="index">
                     <h1>Tickety</h1>
                     <p>Tickety is a ticketing platform that will allow users to communicate with the company through tickets they create.</p>
@@ -41,10 +41,57 @@ class Page extends React.Component {
                     <p></p>
                     <h2>Companies:</h2>
                     <a className="pill" href="company.html">Google</a>
-                    
                     {this.state.companies.map((i)=> <a className="pill" href={i[0]}>{i[1]}</a>)}
-                    
+
                 </div>
+
+                <br/>
+                <br/>
+                <div className="sql-tests">
+                    <button className="pill" onClick={() => {
+                        axios.post('http://localhost:4000/reset_companies', {}).then((response) => {
+                            console.log(response)
+                        });
+                    }}>Reset Company table</button>
+                    <button className="pill" onClick={() => {
+                        axios.post('http://localhost:4000/new_company', {}).then((response) => {
+                            console.log(response)
+                        });
+                    }}>New Company</button>
+                    <button className="pill" onClick={() => {
+                        axios.post('http://localhost:4000/companies', {}).then((response) => {
+                            console.log(response)
+                        });
+                    }}>Get companies</button>
+                    <button className="pill" onClick={() => {
+                        axios.post('http://localhost:4000/reset_posts', {}).then((response) => {
+                            console.log(response)
+                        });
+                    }}>Reset Posts table</button>
+                    <button className="pill" onClick={() => {
+                        axios.post('http://localhost:4000/new_post', {}).then((response) => {
+                            console.log(response)
+                        });
+                    }}>New Post</button>
+                    <button className="pill" onClick={() => {
+                        axios.post('http://localhost:4000/posts', {}).then((response) => {
+                            console.log(response)
+                        });
+                    }}>Get Posts</button>
+                    <button className="pill" onClick={() => {
+                        axios.post('http://localhost:4000/reset_tickets', {}).then((response) => {
+                            console.log(response)
+                        });
+                    }}>Reset Tickets table</button>
+                    <button className="pill" onClick={() => {
+                        axios.post('http://localhost:4000/tickets', {}).then((response) => {
+                            console.log(response)
+                        });
+                    }}>Get tickets</button>
+                </div>
+                <br/>
+                <br/>
+
                 <div id="create-btn">
                     {createCompany}
                 </div>

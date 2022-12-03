@@ -50,7 +50,7 @@ class Page extends React.Component {
 
         return (
             <div>
-                <Navbar company="Google" name="Ryan" />
+                <Navbar company="Google" name={Cookies.get('loggedIn')} />
                 <Company id={this.state.id} selected={this.state.selected} name="Google" desc="An Alphabet property" onClick={this.updateTab} />
                 {tab}
             </div>

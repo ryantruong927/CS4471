@@ -89,8 +89,9 @@ textarea {
 
 .ticket-nav,
 .comment-number {
-    align-self: flex-end;
-    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .ticket-list {
@@ -115,7 +116,8 @@ textarea {
     transition: 0.2s;
 }
 
-.ticket {
+.ticket,
+.ticket-comment {
     display: grid;
     grid-template-columns: 1fr 13fr 1fr;
     column-gap: 25px;
@@ -171,7 +173,7 @@ textarea {
     cursor: pointer;
 }
 
-.ticket .ticket-author {
+.ticket-author {
     font-size: smaller;
     color: dimgrey;
 }
@@ -229,6 +231,11 @@ textarea,
     margin-top: 30px;
 }
 
+.comments {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
 .comment-space {
     padding: 0 10%;
 }
@@ -247,8 +254,25 @@ textarea,
     padding: 24px;
 }
 
-.comments {
-    margin-bottom: 25px;
+.post-comment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.post-comment textarea {
+    background-color: #f7f8fd;
+}
+
+.post-comment div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-btn:hover,
+.comment-btn:focus {
+    background-color: #f7bd67;
+    border: #f7bd67 2px solid;
 }
 
 .ticket-comment {
