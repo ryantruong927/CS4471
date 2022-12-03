@@ -201,29 +201,6 @@ input, textarea,.ticket-form  .field select {
     margin-top: 15px;
 }
 
-.ticket-comment .description, .ticket-comment .reply-form {
-    grid-column: 4 / 26;
-}
-
-.ticket-comment .reply-form {
-    margin-top: 20px;
-}
-
-.ticket-comment .reply-form div {
-    display: grid;
-    grid-template-columns: repeat(15, 1fr);
-    row-gap: 15px;
-    column-gap: 15px;
-}
-.ticket-comment .reply-form textarea {
-    grid-column: 1 / 12;
-    grid-row: 1 / 5;
-}
-.ticket-comment .reply-form button {
-    padding: 12px;
-    grid-column: 12 / 16;
-}
-
 textarea {
     background-color: #f7f8fd;
 }
