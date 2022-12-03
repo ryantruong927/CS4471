@@ -1,4 +1,8 @@
 const express = require ("express");
+<<<<<<< HEAD
+=======
+const Axios = require('axios');
+>>>>>>> origin/divine
 const app = express();
 const cors = require("cors");
 const { Connection, Request } = require("tedious");
@@ -6,6 +10,10 @@ var TYPES = require("tedious").TYPES
 app.use(express.json());
 app.use(cors());
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/divine
 const configuration = {
     authentication: {
       options: {
@@ -31,6 +39,7 @@ const configuration = {
 
 connection.connect();
 
+<<<<<<< HEAD
 app.post("/company", (req,res)=> {
 
     const name = req.body.name;
@@ -102,11 +111,17 @@ app.post("/post", (req,res)=> {
     connection.execSql(request);
 });
 
+=======
+>>>>>>> origin/divine
 app.post("/register", (req,res)=> {
 
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/divine
     const query = "INSERT INTO users (UserName, password, Email, Reputation) VALUES (@uname, @upass, @uemail, '0')";
 
     const request = new Request(query,
@@ -119,15 +134,23 @@ app.post("/register", (req,res)=> {
       request.addParameter('uname', TYPES.VarChar, username);
       request.addParameter('upass', TYPES.VarChar, password);
       request.addParameter('uemail', TYPES.VarChar, email);
+<<<<<<< HEAD
       console.log(request);
+=======
+>>>>>>> origin/divine
 
       connection.execSql(request);
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/divine
 app.post('/login', (req,res) =>{
     const username = req.body.username;
     const password = req.body.password;
     results = [];
+<<<<<<< HEAD
     const q = "SELECT * FROM users WHERE userName = @uname AND password = @upass;";
 
     const request = new Request(q,
@@ -140,6 +163,20 @@ app.post('/login', (req,res) =>{
           if(results.length > 0 ){
             res.json(results);
         }else{
+=======
+ //   const q = "SELECT * FROM users;";
+    const q = "SELECT * FROM users WHERE userName = @uname AND password = @upass;";
+    const request = new Request(q,
+        (err) => {
+          if (err) { 
+            console.error(err.message);
+            connection.close();
+          }
+          if(results.length > 0 ){
+            res.json(results);
+        }else{
+          console.log("Not working")
+>>>>>>> origin/divine
             res.send({message: "Invalid Credentials!"})
         }
         }
@@ -150,8 +187,13 @@ app.post('/login', (req,res) =>{
       request.on("row", columns => {
         results.push(columns);
       });
+<<<<<<< HEAD
 
     connection.execSql(request); 
+=======
+    connection.execSql(request); 
+
+>>>>>>> origin/divine
 })
 
 app.listen(4000, () => {
