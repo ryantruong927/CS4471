@@ -67,7 +67,6 @@ class Post extends React.Component {
             }
         }
 
-
         let addText = !this.state.isShowingTicketForm ? "Add Ticket" : "Cancel"
 
         return (
