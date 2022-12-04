@@ -44,7 +44,13 @@ class Page extends React.Component {
     }
 
     register() {
-    
+        var erre = document.getElementById("err-e");
+        var errp = document.getElementById("err-p");
+        erre.style.display = "none";
+        errp.style.display = "none";
+
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if (this.state.email.match(validRegex) && this.state.registerPassword.length>5) {
         axios.post('http://localhost:4000/register', {
           username: this.state.registerUser,
           password: this.state.registerPassword, 
@@ -54,15 +60,26 @@ class Page extends React.Component {
             this.setLoginStat(response.data.message)
             var err = document.getElementById("error");
             err.style.display = "flex";
-
-
             }else{
             Cookies.set("loggedIn", this.state.registerUser, { expires: 1 });
             this.setLoginStat(this.state.registerUser);
-            window.location.href='index.html';
+            window.location.href='account.html';
             }
 
         })
+
+    } else if(!this.state.email.match(validRegex))
+     {
+          
+        var err = document.getElementById("err-e");
+        err.style.display = "flex";    
+      } else if(this.state.registerPassword.length <= 5) 
+      
+      {
+        var errp = document.getElementById("err-p");
+        errp.style.display = "flex";    
+      }
+
       };
 
       
@@ -80,6 +97,7 @@ class Page extends React.Component {
 
 
        login () {
+
         axios.post('http://localhost:4000/login', {
           username: this.state.loginUser,
           password: this.state.loginpassword, 
@@ -95,6 +113,8 @@ class Page extends React.Component {
             window.location.href='index.html';
           }
         });
+
+
       };
 
 
@@ -102,8 +122,13 @@ class Page extends React.Component {
         Cookies.remove("loggedIn");
         var err1 = document.getElementById("error");
         var err2 = document.getElementById("err");
+        var erre = document.getElementById("err-e");
+        var errp = document.getElementById("err-p");
         err1.style.display = "none";
         err2.style.display = "none";
+        erre.style.display = "none";
+        errp.style.display = "none";
+
 
       };
 
@@ -126,7 +151,9 @@ class Page extends React.Component {
                     </div>
                     <button className="pill" onClick={this.register} >Create Account</button>
                     <button onClick={this.hider} className="pill">Already Have an account?</button>
-                    <div className="pill" id="error" >Invalid Registration!</div>
+                    <div className="pill" id="error" >User Exists!</div>
+                    <div className="pill" id="err-e" >Invalid Email!</div>
+                    <div className="pill" id="err-p" >Bad Password! 6 letter min.</div>
 
 
                 </div><br></br>

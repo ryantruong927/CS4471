@@ -33,7 +33,7 @@ button:hover {
     gap: 10px;
 }
 
-#error, #err {
+#error, #err, #err-e, #err-p {
     display: none;
     margin-top: 20px;
     background-color: #e4563d;
