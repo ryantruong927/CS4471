@@ -9,6 +9,10 @@ function Posts(props) {
         results = response.data
         console.log(results)
     });
+    // axios.post('http://localhost:4000/tickets', { CompanyID: props.id, PostID: post.id }).then((response) => {
+    //     results = response.data
+    //     console.log(results)
+    // });
 
     for (let i = 1; i < results.length; i++){
         posts.push(<Post key={posts[i][1]} title={posts[i][2]} description={posts[i][3]} id={i} date={posts[i][4]} companyID={props.id}/>)

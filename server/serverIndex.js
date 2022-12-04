@@ -426,7 +426,11 @@ app.post("/new_ticket", (req,res)=> {
 app.post("/tickets", (req,res)=> {
 
   results = [];
-  const q = "SELECT * FROM Ticket;";
+    const companyID = req.body.CompanyID;
+    const postID = req.body.PostID;
+    let q = "SELECT * FROM Ticket;";
+    if ( companyID !== undefined && postID !== undefined ) q += ` WHERE CompanyID=${companyID} AND PostID=${postID}`
+    q += ';'
 
   const request = new Request(q,
     (err) => {
