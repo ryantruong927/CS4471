@@ -4,14 +4,34 @@ class Page extends React.Component {
     constructor(props) {
         super(props)
 
+        let id = window.location.href.split("id=")[1].split("#")[0]
         let page = window.location.href.split("#")[1]
         if (window.location.href.split("#")[1] == undefined)
             page = "overview"
+
         this.state = {
             url: window.location.href.split("#"),
-            selected: page
+            selected: page,
+            id: id,
+            name: "",
+            description: "",
+            email: ""
         }
         this.updateTab = this.updateTab.bind(this)
+        this.getcompanies = this.getcompanies.bind(this)
+        this.getcompanies();
+    }
+
+    getcompanies () {
+        
+        axios.post('http://localhost:4000/getcompany', {
+            id: this.state.id
+        }).then((response) => {
+            console.error(response.data)
+            this.setState({ name: response.data[0][1].value });
+            this.setState({ description: response.data[0][2].value });
+            this.setState({ email: response.data[0][3].value });
+        });
     }
 
     updateTab(state) {
@@ -23,16 +43,16 @@ class Page extends React.Component {
         window.location = this.state.url[0] + "#" + this.state.selected
         switch (this.state.selected) {
             case "overview":
-                tab = <Overview selected={this.state.selected} onClick={this.updateTab}/>
+                tab = <Overview selected={this.state.selected} name={this.state.name} description={this.state.description} email={this.state.email} onClick={this.updateTab}/>
                 break
             case "posts":
-                tab = <Posts selected={this.state.selected} onClick={this.updateTab}/>
+                tab = <Posts selected={this.state.selected} id={this.state.id} name={this.state.name} description={this.state.description} email={this.state.email} onClick={this.updateTab}/>
                 break
             case "members":
                 tab = <Members selected={this.state.selected} onClick={this.updateTab}/>
                 break
             case "editcompany":
-                tab = <Edit selected={this.state.selected} onClick={this.updateTab}/>
+                tab = <Edit selected={this.state.selected} id={this.state.id} name={this.state.name} description={this.state.description} email={this.state.email} onClick={this.updateTab}/>
                 break 
             case "managemembers":
                 tab = <Manage selected={this.state.selected} onClick={this.updateTab}/>
@@ -44,8 +64,8 @@ class Page extends React.Component {
 
         return (
             <div>
-                <Navbar company="Google" name={Cookies.get('loggedIn')} />
-                <Company selected={this.state.selected} name="Google" desc="An Alphabet property" onClick={this.updateTab} />
+                <Navbar company={this.state.name} name={Cookies.get('loggedIn')} />
+                <Company selected={this.state.selected} name={this.state.name} description={this.state.description} email={this.state.email} onClick={this.updateTab} />
                 {tab}
             </div>
         )
@@ -90,7 +110,7 @@ class Company extends React.Component {
         }
         return (
             <div id="company-header">
-                <h1>Google</h1>
+                <h1>{this.props.name}</h1>
                 <div id="company-btns">
                     {buttons}
                 </div>
@@ -106,13 +126,11 @@ function Overview(props) {
     return (
         <div id="overview">
             <div id="overview-body">
-                <p>Google Stadia will be discontinued on January 18th, 2023</p>
-                <p>Go check out the Google Stadia while you can!</p>
+                <p>{props.description}</p>
             </div>
             <div className="infobox">
                 <h2>Contact Us</h2>
-                <p>Email: google@google.ca</p>
-                <p>Phone Number: (800) 123-4567</p>
+                <p>Email: {props.email}</p>
             </div>
             <div id="edit-btn">
                 {edit}

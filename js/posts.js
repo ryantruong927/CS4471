@@ -1,6 +1,7 @@
 "use strict"
 
 function Posts(props) {
+    console.log(props)
     let posts = []
     let create = <button className="companybtn pill" onClick={() => props.onClick("createpost")}><p>Create Post</p></button>
 
