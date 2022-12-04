@@ -8,15 +8,17 @@ function Posts(props) {
     axios.post('http://localhost:4000/posts', { CompanyID: props.id }).then((response) => {
         results = response.data
         console.log(results)
-        props.onClick("posts")
     });
+    // axios.post('http://localhost:4000/tickets', { CompanyID: props.id, PostID: post.id }).then((response) => {
+    //     results = response.data
+    //     console.log(results)
+    // });
 
     for (let i = 1; i < results.length; i++){
-        posts.push(<Post key={posts[i][1]} title={posts[i][2]} description={posts[i][3]} id={i} date={posts[i][4]} />)
+        posts.push(<Post key={posts[i][1]} title={posts[i][2]} description={posts[i][3]} id={i} date={posts[i][4]} companyID={props.id}/>)
     }
 
-    // posts.push(<Post key={0} title="Google Stadia Release Announcement" description="We have released the Google Stadia!" id={0} date="November 19th, 2019" />)
-    //
+    // posts.push(<Post key={0} title="Google Stadia Release Announcement" description="We have released the Google Stadia!" id={11} date="November 19th, 2019" companyID={props.id}/>)
     // for (let i = 1; i < 4; i++)
     //     posts.push(<Post key={i} title={"Update #" + i} description="This is an update!" id={i} date={"August 1" + i + "th, 2021"} />)
     //
@@ -106,8 +108,11 @@ class Post extends React.Component {
     }
 
     addTicket(ticket) {
-        ticket.id = this.state.tickets.length
-        this.setState({ tickets: [...this.state.tickets, ticket] })
+        ticket.companyID = this.props.companyID
+        ticket.postID = this.props.id
+        axios.post('http://localhost:4000/new_ticket', ticket).then((response) => {
+            console.log(response);
+        })
         this.showTicketForm()
         this.forceUpdate()
     }
