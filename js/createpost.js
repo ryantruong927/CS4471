@@ -53,7 +53,7 @@ class createPost extends React.Component {
         console.log({
             name: name,
             description: description,
-            companyId: companyId
+            companyId: companyId,
             tags: tags
         })
 

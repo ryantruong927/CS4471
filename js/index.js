@@ -40,7 +40,7 @@ class Page extends React.Component {
                     <p>Users will be able to comment, reply to other people's comments, and upvote the tickets they like the most.</p>
                     <p></p>
                     <h2>Companies:</h2>
-                    <a className="pill" href="company.html">Google</a>
+                    {/* <a className="pill" href="company.html">Google</a> */}
                     {this.state.companies.map((i)=> <a key={i[0]} className="pill" href={i[0]}>{i[1]}</a>)}
 
                 </div>

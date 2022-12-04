@@ -52,22 +52,22 @@ class CreateCompany extends React.Component {
 
 function Fourm(props) {
 
-    var test = new CreateCompany(props); 
-    let create = <button className="companybtn pill" onClick={() => test.create()}><p>Create</p></button>
+    var company = new CreateCompany(props); 
+    let create = <button className="companybtn pill" onClick={() => company.create()}><p>Create</p></button>
 
     const titleField = <div className="field">
         <label htmlFor="title">Company Name: </label>
-        <input type="text" id="name" autoComplete="off" defaultValue={window.companyName}/>
+        <input type="text" id="name" autoComplete="off"/>
     </div>
 
     const descriptionField = <div className="field">
         <label htmlFor="desc">Company Description: </label>
-        <input type="text" id="description" autoComplete="off" defaultValue={window.companyDescription}/>
+        <input type="text" id="description" autoComplete="off"/>
     </div>
 
     const emailField = <div className="field">
         <label htmlFor="email">Contact Email: </label>
-        <input type="text" id="email" autoComplete="off" defaultValue={window.companyEmail}/>
+        <input type="text" id="email" autoComplete="off"/>
     </div>
 
     return (
