@@ -132,28 +132,6 @@ app.post("/companies", (req,res)=> {
     connection.execSql(request); 
 });
 
-app.post("/post", (req,res)=> {
-
-    const name = req.body.name;
-    const description = req.body.desc;
-    const tags = req.body.tags;
-    /*const query = "INSERT INTO posts (name, description, tags) VALUES (@uname, @udescription, @utags, '0')";*/
-
-    const request = new Request(query,
-        (err, rowCount) => {
-          if (err) {
-            console.error(err.message);
-          } 
-        }
-      );
-      request.addParameter('uname', TYPES.VarChar, name);
-      request.addParameter('udescription', TYPES.VarChar, description);
-      request.addParameter('utags', TYPES.VarChar, tags);
-      console.log(request);
-
-    connection.execSql(request);
-});
-
 app.post("/register", (req,res)=> {
 
     const username = req.body.username;
@@ -350,9 +328,18 @@ app.post("/reset_posts", (req,res)=> {
 
 app.post("/new_post", (req,res)=> {
 
-  const companyID = 19;
-  const random_id = Math.floor(Math.random() * 100);
-  const query = `INSERT INTO Post (PostID, CompanyID, Name, Description, Date) VALUES (${random_id}, ${companyID}, 'PostName', 'Post_desc', '12-03-2022');`;
+  const name = req.body.name;
+  const description = req.body.description;
+  const companyID = req.body.companyId;
+  const tags = req.body.tags;
+
+  let today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  const yyyy = today.getFullYear();
+  today = mm + '/' + dd + '/' + yyyy;
+
+  const query = `INSERT INTO Post (CompanyID, Name, Description, Date) VALUES (${companyID}, '${name}', '${description}', '${today}');`;
 
   const request = new Request(query,
     (err, rowCount) => {
@@ -368,7 +355,10 @@ app.post("/new_post", (req,res)=> {
 app.post("/posts", (req,res)=> {
 
   results = [];
-  const q = "SELECT * FROM Post;";
+  const companyID = req.body.companyID;
+  let q = "SELECT * FROM Post";
+  if ( companyID !== undefined ) q += ` WHERE CompanyID=${companyID}`
+  q += ';'
 
   const request = new Request(q,
     (err) => {

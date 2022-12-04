@@ -1,16 +1,26 @@
 "use strict"
 
 function Posts(props) {
-    console.log(props)
     let posts = []
+    let results = []
     let create = <button className="companybtn pill" onClick={() => props.onClick("createpost")}><p>Create Post</p></button>
 
-    posts.push(<Post key={0} title="Google Stadia Release Announcement" description="We have released the Google Stadia!" id={0} date="November 19th, 2019" />)
+    axios.post('http://localhost:4000/posts', { CompanyID: props.id }).then((response) => {
+        results = response.data
+        console.log(results)
+        props.onClick("posts")
+    });
 
-    for (let i = 1; i < 4; i++)
-        posts.push(<Post key={i} title={"Update #" + i} description="This is an update!" id={i} date={"August 1" + i + "th, 2021"} />)
+    for (let i = 1; i < results.length; i++){
+        posts.push(<Post key={posts[i][1]} title={posts[i][2]} description={posts[i][3]} id={i} date={posts[i][4]} />)
+    }
 
-    posts.push(<Post key={4} title="Google Stadia Will Be Discontinued" id={4} description="We regret to announce that Google Stadia will be discontinued on January 18th, 2023." date="September 29th, 2022" />)
+    // posts.push(<Post key={0} title="Google Stadia Release Announcement" description="We have released the Google Stadia!" id={0} date="November 19th, 2019" />)
+    //
+    // for (let i = 1; i < 4; i++)
+    //     posts.push(<Post key={i} title={"Update #" + i} description="This is an update!" id={i} date={"August 1" + i + "th, 2021"} />)
+    //
+    // posts.push(<Post key={4} title="Google Stadia Will Be Discontinued" id={4} description="We regret to announce that Google Stadia will be discontinued on January 18th, 2023." date="September 29th, 2022" />)
 
     return (
         <div >
