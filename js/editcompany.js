@@ -45,17 +45,20 @@ class EditCompany extends React.Component {
     }
 
     edit() {
+        var id = this.props.id;
         var name = document.getElementById("name").value;
         var description = document.getElementById("description").value;
-        var email = document.getElementById('email').value;
+        var email = document.getElementById("email").value;
 
         axios.post('http://localhost:4000/editcompany', {
+            id: id,
             name: name,
             description: description, 
             email: email
         }).then((response) => {
             console.log(response);
         })
+        window.location.href = window.location.href.split("#")[0];
     }
 
     render() {}
