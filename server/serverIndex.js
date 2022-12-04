@@ -399,7 +399,19 @@ app.post("/reset_tickets", (req,res)=> {
 
 app.post("/new_ticket", (req,res)=> {
 
-  const query = `INSERT INTO Ticket (TicketID, PostID, CompanyID, Name, Description, Status, Date, Creator) VALUES (14, 2, 8, 'TName', 'TDesc', 0, '12-03-2022', 'ME');`;
+    const postID = req.body.postID;
+    const companyID = req.body.companyID;
+    const title = req.body.title;
+    const description = req.body.description;
+    const creator = req.body.username;
+
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+    today = mm + '/' + dd + '/' + yyyy;
+
+    const query = `INSERT INTO Ticket (PostID, CompanyID, Name, Description, Status, Date, Creator) VALUES (${postID}, ${companyID}, '${title}', '${description}', 0, '${today}', '${creator}');`;
   const request = new Request(query,
     (err, rowCount) => {
       if (err) {
