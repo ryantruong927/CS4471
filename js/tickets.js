@@ -47,13 +47,16 @@ class Ticket extends React.Component {
                     description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel."
                 }
             ],
-            isShowingComments: false
+            isShowingComments: false,
+            isEditingTicket: false
         }
         this.state.comments = this.state.comments.sort(
             (a, b) => { return (a.upvotes - a.downvotes) - (b.upvotes - b.downvotes) || a.id - b.id }
         )
         this.upvote = this.upvote.bind(this)
         this.downvote = this.downvote.bind(this)
+        this.showTicketForm = this.showTicketForm.bind(this)
+        this.editTicket = this.editTicket.bind(this)
         this.changeCommentsView = this.changeCommentsView.bind(this)
         this.addComment = this.addComment.bind(this)
     }
@@ -64,6 +67,17 @@ class Ticket extends React.Component {
 
     downvote() {
         this.setState({ downvotes: this.state.downvotes + 1 })
+    }
+
+    showTicketForm() {
+        this.setState({ isEditingTicket: !this.state.isEditingTicket })
+    }
+
+    editTicket(ticket) {
+        this.setState({ title: ticket.title })
+        this.setState({ description: ticket.description })
+        this.setState({ tags: ticket.tags })
+        this.setState({ isEditingTicket: !this.state.isEditingTicket })
     }
 
     changeCommentsView() {
@@ -83,74 +97,93 @@ class Ticket extends React.Component {
 
     addComment(comment) {
         comment.id = this.state.comments.length
-        this.state.comments.push(comment)
-        this.forceUpdate()
+        this.setState({ comments: [...this.state.comments, comment] })
     }
 
     render() {
         let id = "t" + this.state.id
-        return (
-            <div className="ticket-container" id={id}>
-                <div className="ticket">
-                    <div className="col">
-                        <div className="votes">
-                            <div className="voting-btn upvote" onClick={this.upvote}>
-                                <span>▲</span>
-                                <span>{this.state.upvotes}</span>
-                            </div>
-                            <div className="voting-btn downvote" onClick={this.downvote}>
-                                <span>▼</span>
-                                <span>{this.state.downvotes}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="ticket-body">
-                            <h3 style={{ marginBottom: 0 }}>{this.state.title}</h3>
-                            <span className="ticket-author">
-                                by {this.state.name} (@{this.state.username}) on {this.state.date}</span>
-                            <p>{this.state.description}</p>
-                            <div>
-                                <div className="tag">
-                                    {this.state.tags[0]}
+        let obj
+        if (this.state.isEditingTicket)
+            return (
+                <TicketForm
+                    title={this.state.title}
+                    description={this.state.description}
+                    tags={this.state.tags}
+                    onClick={this.editTicket}
+                />
+            )
+        else {
+            return (
+                <div className="ticket-container" id={id}>
+                    <div className="ticket">
+                        <div className="col">
+                            <div className="votes">
+                                <div className="voting-btn upvote" onClick={this.upvote}>
+                                    <span>▲</span>
+                                    <span>{this.state.upvotes}</span>
                                 </div>
-                                <div className="tag">
-                                    {this.state.tags[1]}
+                                <div className="voting-btn downvote" onClick={this.downvote}>
+                                    <span>▼</span>
+                                    <span>{this.state.downvotes}</span>
                                 </div>
                             </div>
                         </div>
+                        <div className="col">
+                            <div className="ticket-body">
+                                <h3 style={{ marginBottom: 0 }}>{this.state.title}</h3>
+                                <span className="ticket-author">
+                                    by {this.state.name} (@{this.state.username}) on {this.state.date}</span>
+                                <p>{this.state.description}</p>
+                                <div>
+                                    <div className="tag">
+                                        {this.state.tags[0]}
+                                    </div>
+                                    <div className="tag">
+                                        {this.state.tags[1]}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div className="ticket-nav">
-                    <h3>Comments ({this.state.comments.length})</h3>
-                    <button className="more" onClick={this.changeCommentsView}>
-                        <i className="fa-solid fa-ellipsis fa-3x moreicon"></i>
-                    </button>
-                </div>
-                {
-                    this.state.isShowingComments &&
-                    <div>
-                        <CommentForm onClick={this.addComment} />
-                        <div className="comments">
+                    <div className="ticket-nav">
+                        <h3>Comments ({this.state.comments.length})</h3>
+                        <div>
                             {
-                                this.state.comments.map(
-                                    comment => <Comment
-                                        key={comment.id}
-                                        id={comment.id}
-                                        name={comment.name}
-                                        username={comment.username}
-                                        date={comment.date}
-                                        upvotes={comment.upvotes}
-                                        downvotes={comment.downvotes}
-                                        description={comment.description}
-                                    />
-                                )
+                                this.state.isShowingComments &&
+                                <button className="pill" onClick={this.showTicketForm}>
+                                    Edit Ticket
+                                </button>
                             }
+                            <button className="more" onClick={this.changeCommentsView}>
+                                <i className="fa-solid fa-ellipsis fa-3x moreicon"></i>
+                            </button>
                         </div>
                     </div>
-                }
-            </div >
-        )
+                    {
+                        this.state.isShowingComments &&
+                        <div>
+                            <CommentForm onClick={this.addComment} />
+                            <div className="comments">
+                                {
+                                    this.state.comments.map(
+                                        comment => <Comment
+                                            key={comment.id}
+                                            id={comment.id}
+                                            name={comment.name}
+                                            username={comment.username}
+                                            date={comment.date}
+                                            upvotes={comment.upvotes}
+                                            downvotes={comment.downvotes}
+                                            description={comment.description}
+                                        />
+                                    )
+                                }
+                            </div>
+                        </div>
+                    }
+                </div >
+            )
+        }
     }
 }
 

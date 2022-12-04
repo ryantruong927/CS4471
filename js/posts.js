@@ -97,7 +97,7 @@ class Post extends React.Component {
 
     addTicket(ticket) {
         ticket.id = this.state.tickets.length
-        this.state.tickets.push(ticket)
+        this.setState({ tickets: [...this.state.tickets, ticket] })
         this.showTicketForm()
         this.forceUpdate()
     }
@@ -129,7 +129,12 @@ class Post extends React.Component {
                 </div>
                 {
                     this.state.isShowingTicketForm &&
-                    <TicketForm onClick={this.addTicket} />
+                    <TicketForm
+                        title=""
+                        description=""
+                        tags={["", "Not In Progress"]}
+                        onClick={this.addTicket}
+                    />
                 }
                 <div id="tickets">
                     {
@@ -146,6 +151,7 @@ class Post extends React.Component {
                                 tags={ticket.tags}
                                 upvotes={ticket.upvotes}
                                 downvotes={ticket.downvotes}
+                                onClick={this.showTicketForm}
                             />
                         )
                     }
@@ -159,12 +165,9 @@ class TicketForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            title: "",
-            description: "",
-            tags: [
-                "",
-                "Not In Progress"
-            ]
+            title: this.props.title,
+            description: this.props.description,
+            tags: this.props.tags
         }
         this.setTitle = this.setTitle.bind(this)
         this.setTag = this.setTag.bind(this)
@@ -176,7 +179,9 @@ class TicketForm extends React.Component {
     }
 
     setTag(tag) {
-        this.state.tags[0] = tag
+        let tags = this.state.tags
+        tags[0] = tag
+        this.setState({ tags: tags })
     }
 
     setDescription(description) {
