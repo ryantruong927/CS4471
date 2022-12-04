@@ -17,7 +17,7 @@ class Posts extends React.Component {
     }
 
     showPostForm() {
-        this.setState({ isCreatingPost: !isCreatingPost })
+        this.setState({ isCreatingPost: !this.state.isCreatingPost })
     }
 
 
@@ -65,7 +65,28 @@ class Posts extends React.Component {
                                 description={post.description}
                                 date={post.date}
                                 tag={post.tag}
-                                tickets={[]}
+                                tickets={[{
+                                    id: 0,
+                                    title: "Good Ticket",
+                                    name: "Ryan Truong",
+                                    username: "ryantruong927",
+                                    date: "05/12/11",
+                                    tags: ["Bug", "Completed"],
+                                    upvotes: 3453,
+                                    downvotes: 33,
+                                    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel."
+                                },
+                                {
+                                    id: 1,
+                                    title: "Bad Ticket",
+                                    name: "Brian Wrong",
+                                    username: "ryantruong927",
+                                    date: "05/12/11",
+                                    tags: ["Issue", "Rejected"],
+                                    upvotes: 98,
+                                    downvotes: 3454,
+                                    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel."
+                                }]}
                             />
                         )
                     }
@@ -121,11 +142,11 @@ class Post extends React.Component {
     }
 
     addTicket(ticket) {
-        ticket.companyID = this.props.companyID
         ticket.postID = this.props.id
         axios.post('http://localhost:4000/new_ticket', ticket).then((response) => {
             console.log(response);
         })
+        this.setState({ tickets: [...this.state.tickets, ticket] })
         this.showTicketForm()
         this.forceUpdate()
     }
