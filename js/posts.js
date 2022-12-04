@@ -2,13 +2,18 @@
 
 function Posts(props) {
     let posts = []
+    let results = []
     let create = <button className="companybtn pill" onClick={() => props.onClick("createpost")}><p>Create Post</p></button>
 
-    console.log('company id', props.id)
-    axios.post('http://localhost:4000/posts', {}).then((response) => {
-        console.log(response)
+    axios.post('http://localhost:4000/posts', { CompanyID: props.id }).then((response) => {
+        results = response.data
+        console.log(results)
+        props.onClick("posts")
     });
 
+    for (let i = 1; i < results.length; i++){
+        posts.push(<Post key={posts[i][1]} title={posts[i][2]} description={posts[i][3]} id={i} date={posts[i][4]} />)
+    }
 
     // posts.push(<Post key={0} title="Google Stadia Release Announcement" description="We have released the Google Stadia!" id={0} date="November 19th, 2019" />)
     //

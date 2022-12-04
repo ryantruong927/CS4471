@@ -50,20 +50,16 @@ class createPost extends React.Component {
         var description = document.getElementById("desc").value;
         var tags = document.getElementById('tags').value;
 
-        console.log({
+        axios.post('http://localhost:4000/new_post', {
             name: name,
             description: description,
             companyId: companyId,
             tags: tags
+        }).then((response) => {
+          console.log(response);
         })
+        window.location.href = window.location.href.split("#")[0];
 
-        // axios.post('http://localhost:4000/post', {
-        //   name: name,
-        //   description: description,
-        //   tags: tags
-        // }).then((response) => {
-        //   console.log(response);
-        // })
       };
 
     render() {
