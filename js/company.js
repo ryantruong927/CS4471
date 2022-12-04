@@ -4,6 +4,10 @@ class Page extends React.Component {
     constructor(props) {
         super(props)
 
+        this.state = {
+            posts: []
+        }
+
         let page = window.location.href.split("#")[1]
         if (window.location.href.split("#")[1] == undefined)
             page = "overview"
@@ -12,6 +16,28 @@ class Page extends React.Component {
             selected: page
         }
         this.updateTab = this.updateTab.bind(this)
+
+        let results = []
+        let posts = []
+
+        axios.post('http://localhost:4000/posts', { CompanyID: this.props.id }).then((response) => {
+            results = response.data
+            // console.log(results)
+        }).finally(() => {
+            for (let i = results.length - 1; i >= 0; i--) {
+                posts.push(
+                    {
+                        companyId: results[i][1].value,
+                        id: results[i][0].value,
+                        title: results[i][2].value,
+                        description: results[i][3].value,
+                        date: results[i][4].value
+                    }
+                )
+            }
+        })
+
+        this.state.posts = posts
     }
 
     updateTab(state) {
@@ -26,7 +52,7 @@ class Page extends React.Component {
                 tab = <Overview selected={this.state.selected} onClick={this.updateTab} />
                 break
             case "posts":
-                tab = <Posts selected={this.state.selected} onClick={this.updateTab} />
+                tab = <Posts posts={this.state.posts} selected={this.state.selected} onClick={this.updateTab} />
                 break
             case "members":
                 tab = <Members selected={this.state.selected} onClick={this.updateTab} />
@@ -38,8 +64,8 @@ class Page extends React.Component {
                 tab = <Manage selected={this.state.selected} onClick={this.updateTab} />
                 break
             case "createpost":
-                tab = <CreatePosts selected={this.state.selected} id={this.state.id} onClick={this.updateTab}/>
-                break 
+                tab = <CreatePosts selected={this.state.selected} id={this.state.id} onClick={this.updateTab} />
+                break
         }
 
         return (

@@ -1,19 +1,5 @@
 "use strict"
 
-function Tickets(props) {
-    if (props.isShowingTickets) {
-        let tickets = []
-        for (let i = 0; i < 3; i++)
-            tickets.push(<Ticket key={i} ticketNum={i + 1} />)
-
-        return (
-            <div id="tickets">
-                {tickets}
-            </div>
-        )
-    }
-}
-
 class Ticket extends React.Component {
     constructor(props) {
         super(props)
@@ -102,7 +88,6 @@ class Ticket extends React.Component {
 
     render() {
         let id = "t" + this.state.id
-        let obj
         if (this.state.isEditingTicket)
             return (
                 <TicketForm
@@ -187,102 +172,84 @@ class Ticket extends React.Component {
     }
 }
 
-class Comment extends React.Component {
+class TicketForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            id: this.props.id,
-            name: this.props.name,
-            username: this.props.username,
-            date: this.props.date,
-            upvotes: this.props.upvotes,
-            downvotes: this.props.downvotes,
-            description: this.props.description
+            title: this.props.title,
+            description: this.props.description,
+            tags: this.props.tags
         }
-        this.upvote = this.upvote.bind(this)
-        this.downvote = this.downvote.bind(this)
-    }
-
-    upvote() {
-        this.setState({ upvotes: this.state.upvotes + 1 })
-    }
-
-    downvote() {
-        this.setState({ downvotes: this.state.downvotes + 1 })
-    }
-
-    render() {
-        return (
-            <div className="ticket-comment">
-                <div className="col">
-                    <div className="votes">
-                        <div className="voting-btn upvote" onClick={this.upvote}>
-                            <span>▲</span>
-                            <span>{this.state.upvotes}</span>
-                        </div>
-                        <div className="voting-btn downvote" onClick={this.downvote}>
-                            <span>▼</span>
-                            <span>{this.state.downvotes}</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="col">
-                    <div className="description">
-                        <div>
-                            <p>{this.state.description}</p>
-                        </div>
-                    </div>
-                    <span className="ticket-author">by {this.state.name} (@{this.state.username}) on {this.state.date}</span>
-                </div>
-            </div>
-        )
-    }
-}
-
-class CommentForm extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            description: ""
-        }
+        this.setTitle = this.setTitle.bind(this)
+        this.setTag = this.setTag.bind(this)
         this.setDescription = this.setDescription.bind(this)
     }
 
+    setTitle(title) {
+        this.setState({ title: title });
+    }
+
+    setTag(tag) {
+        let tags = this.state.tags
+        tags[0] = tag
+        this.setState({ tags: tags })
+    }
+
     setDescription(description) {
-        this.setState({ description: description })
+        this.setState({ description: description });
     }
 
     render() {
         return (
-            <div className="post-comment">
-                <textarea
-                    placeholder="Add a comment" maxLength={550} rows={3}
-                    value={this.state.description} onChange={e => this.setDescription(e.target.value)}
-                ></textarea>
-                <div>
-                    <span>{550 - this.state.description.length} characters left</span>
-                    <button
-                        className="comment-btn pill"
-                        onClick={() => {
-                            if (this.state.description === '')
-                                return
-                            let comment = {
-                                id: 0,
-                                name: "Ryan Truong",
-                                username: "ryantruong927",
-                                date: "03/12/22",
-                                upvotes: 0,
-                                downvotes: 0,
-                                description: this.state.description
-                            }
-                            this.props.onClick(comment)
-                            this.setDescription("")
-                        }
-                        }
-                        disabled={this.state.description.length == 0}
-                    >Post Comment</button>
+            <div className="card" id="ticket-form">
+                <div className="field">
+                    <label htmlFor="ticket-title">Ticket Title</label>
+                    <p>Add a short, descriptive headline</p>
+                    <input
+                        type="text" className="pill" id="ticket-title" placeholder="Add a title" autoComplete="off"
+                        value={this.state.title}
+                        onChange={e => this.setTitle(e.target.value)}
+                    />
                 </div>
-            </div>
+                <div className="field">
+                    <label htmlFor="ticket-type">Tag</label>
+                    <p>Add a tag to help identify the type of ticket</p>
+                    <input
+                        type="text" className="pill" id="ticket-tag" placeholder="Add a tag (ex. Bug, Issue, Suggestion, etc.)" autoComplete="off"
+                        value={this.state.tags[0]}
+                        onChange={e => this.setTag(e.target.value)}
+                    />
+                </div>
+                <div className="field">
+                    <label htmlFor="ticket-description">Ticket Description</label>
+                    <p>Include any specific comments on what should be improved, added, etc.</p>
+                    <textarea
+                        className="pill"
+                        id="ticket-description" rows={3}
+                        value={this.state.description} placeholder="Add a description" onChange={e => this.setDescription(e.target.value)}
+                    ></textarea>
+                </div>
+                <div className="buttons">
+                    <button className="custom-btn pill" id="feedback-btn" onClick={() => {
+                        if (this.state.title === '' || this.state.description === '' || this.state.tags[0] === '')
+                            return
+                        let ticket = {
+                            id: 0,
+                            title: this.state.title,
+                            description: this.state.description,
+                            name: "Ryan Truong",
+                            username: "ryantruong927",
+                            date: "03/12/22",
+                            tags: this.state.tags,
+                            upvotes: 0,
+                            downvotes: 0
+                        }
+                        this.props.onClick(ticket)
+                    }
+                    }
+                    >Add Feedback</button>
+                </div>
+            </div >
         )
     }
 }

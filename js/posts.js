@@ -1,78 +1,91 @@
 "use strict"
 
-function Posts(props) {
-    let posts = []
-    let results = []
-    let create = <button className="companybtn pill" onClick={() => props.onClick("createpost")}><p>Create Post</p></button>
-
-    axios.post('http://localhost:4000/posts', { CompanyID: props.id }).then((response) => {
-        results = response.data
-        console.log(results)
-    });
-    // axios.post('http://localhost:4000/tickets', { CompanyID: props.id, PostID: post.id }).then((response) => {
-    //     results = response.data
-    //     console.log(results)
-    // });
-
-    for (let i = 1; i < results.length; i++){
-        posts.push(<Post key={posts[i][1]} title={posts[i][2]} description={posts[i][3]} id={i} date={posts[i][4]} companyID={props.id}/>)
+class Posts extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            posts: props.posts,
+            isCreatingPost: false
+        }
+        this.setPosts = this.setPosts.bind(this)
+        this.showPostForm = this.showPostForm.bind(this)
+        this.createPost = this.createPost.bind(this)
     }
 
-    // posts.push(<Post key={0} title="Google Stadia Release Announcement" description="We have released the Google Stadia!" id={11} date="November 19th, 2019" companyID={props.id}/>)
-    // for (let i = 1; i < 4; i++)
-    //     posts.push(<Post key={i} title={"Update #" + i} description="This is an update!" id={i} date={"August 1" + i + "th, 2021"} />)
-    //
-    // posts.push(<Post key={4} title="Google Stadia Will Be Discontinued" id={4} description="We regret to announce that Google Stadia will be discontinued on January 18th, 2023." date="September 29th, 2022" />)
+    setPosts(posts) {
+        this.setState({ posts: posts })
+    }
 
-    return (
-        <div >
-            <div id="posts">
-                <div style={{ display: "inline" }}>
-                    <p>Filter by tag(s):</p>
-                    <input className="pill"></input>
+    showPostForm() {
+        this.setState({ isCreatingPost: !isCreatingPost })
+    }
+
+
+    createPost(post) {
+        post.companyId = this.state.posts[0].companyId
+        axios.post('http://localhost:4000/new_post', {
+            name: post.name,
+            description: post.description,
+            tags: post.tags
+        }).then((response) => {
+            console.log(response);
+        })
+        // axios.post('http://localhost:4000/tickets', { CompanyID: props.id, PostID: post.id }).then((response) => {
+        //     results = response.data
+        //     console.log(results)
+        // });
+        this.setState({ posts: [...this.state.posts, post] })
+        this.setState({ isCreatingPost: !this.state.isCreatingPost })
+    }
+
+    render() {
+        let addText = !this.state.isCreatingPost ? "Add Post" : "Cancel"
+
+        return (
+            <div >
+                <div id="posts">
                     <div id="post-btn">
-                        {create}
+                        <button className="companybtn pill" onClick={this.showPostForm}>{addText}</button>
                     </div>
+                    {
+                        this.state.isCreatingPost &&
+                        <PostForm
+                            title=""
+                            description=""
+                            tag=""
+                            onClick={this.createPost}
+                        />
+                    }
+                    {
+                        this.state.posts.map(
+                            post => <Post
+                                key={post.id}
+                                id={post.id}
+                                title={post.title}
+                                description={post.description}
+                                date={post.date}
+                                tag={post.tag}
+                                tickets={[]}
+                            />
+                        )
+                    }
                 </div>
-                {posts}
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 class Post extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            companyId: props.companyId,
             id: props.id,
             title: props.title,
             description: props.description,
             date: props.date,
             tags: props.tags,
-            tickets: [
-                {
-                    id: 0,
-                    title: "Huge Bug",
-                    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel.",
-                    name: "Ryan Truong",
-                    username: "ryantruong927",
-                    date: "10/11/2022",
-                    tags: ["Bug", "Not In Progress"],
-                    upvotes: 10,
-                    downvotes: 250,
-                },
-                {
-                    id: 1,
-                    title: "Little Bug",
-                    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam cum dignissimos doloremque, dolores et illo in inventore ipsa nobis perferendis, quae reiciendis vel.",
-                    name: "Brian Wrong",
-                    username: "ryantruong927",
-                    date: "10/11/2022",
-                    tags: ["Bug", "Completed"],
-                    upvotes: 235,
-                    downvotes: 4,
-                }
-            ],
+            tickets: props.tickets,
             isShowingTicketForm: false,
             isShowingTickets: false
         }
@@ -122,6 +135,7 @@ class Post extends React.Component {
         let id = "p" + this.state.id
         let addText = !this.state.isShowingTicketForm ? "Add Ticket" : "Cancel"
 
+        console.log(this.state.tickets)
         return (
             <div className={className} id={id}>
                 <h2>{this.state.title}</h2>
@@ -152,6 +166,7 @@ class Post extends React.Component {
                     />
                 }
                 <div id="tickets">
+
                     {
                         this.state.isShowingTickets &&
                         this.state.tickets.map(
@@ -176,13 +191,13 @@ class Post extends React.Component {
     }
 }
 
-class TicketForm extends React.Component {
+class PostForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             title: this.props.title,
             description: this.props.description,
-            tags: this.props.tags
+            tag: this.props.tag
         }
         this.setTitle = this.setTitle.bind(this)
         this.setTag = this.setTag.bind(this)
@@ -194,9 +209,7 @@ class TicketForm extends React.Component {
     }
 
     setTag(tag) {
-        let tags = this.state.tags
-        tags[0] = tag
-        this.setState({ tags: tags })
+        this.setState({ tag: tag })
     }
 
     setDescription(description) {
@@ -207,7 +220,7 @@ class TicketForm extends React.Component {
         return (
             <div className="card" id="ticket-form">
                 <div className="field">
-                    <label htmlFor="ticket-title">Ticket Title</label>
+                    <label htmlFor="ticket-title">Post Title</label>
                     <p>Add a short, descriptive headline</p>
                     <input
                         type="text" className="pill" id="ticket-title" placeholder="Add a title" autoComplete="off"
@@ -217,16 +230,16 @@ class TicketForm extends React.Component {
                 </div>
                 <div className="field">
                     <label htmlFor="ticket-type">Tag</label>
-                    <p>Add a tag to help identify the type of ticket</p>
+                    <p>Add a tag to help identify the type of post</p>
                     <input
-                        type="text" className="pill" id="ticket-tag" placeholder="Add a tag (ex. Bug, Issue, Suggestion, etc.)" autoComplete="off"
-                        value={this.state.tags[0]}
+                        type="text" className="pill" id="ticket-tag" placeholder="Add a tag (ex. Release, Announcement, Update, etc.)" autoComplete="off"
+                        value={this.state.tag}
                         onChange={e => this.setTag(e.target.value)}
                     />
                 </div>
                 <div className="field">
-                    <label htmlFor="ticket-description">Ticket Description</label>
-                    <p>Include any specific comments on what should be improved, added, etc.</p>
+                    <label htmlFor="ticket-description">Post Description</label>
+                    <p>Describe the content.</p>
                     <textarea
                         className="pill"
                         id="ticket-description" rows={3}
@@ -235,23 +248,24 @@ class TicketForm extends React.Component {
                 </div>
                 <div className="buttons">
                     <button className="custom-btn pill" id="feedback-btn" onClick={() => {
-                        if (this.state.title === '' || this.state.description === '' || this.state.type === '')
+                        if (this.state.title === '' || this.state.description === '' || this.state.tag === '')
                             return
-                        let ticket = {
+                        let post = {
+                            companyId: 0,
                             id: 0,
                             title: this.state.title,
                             description: this.state.description,
                             name: "Ryan Truong",
                             username: "ryantruong927",
                             date: "03/12/22",
-                            tags: this.state.tags,
+                            tag: this.state.tag,
                             upvotes: 0,
                             downvotes: 0
                         }
-                        this.props.onClick(ticket)
+                        this.props.onClick(post)
                     }
                     }
-                    >Add Feedback</button>
+                    >Add Post</button>
                 </div>
             </div >
         )
