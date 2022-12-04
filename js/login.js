@@ -52,7 +52,10 @@ class Page extends React.Component {
         }).then((response) => {
         if(response.data.message){
             this.setLoginStat(response.data.message)
-            alert(response.data.message);
+            var err = document.getElementById("error");
+            err.style.display = "flex";
+
+
             }else{
             Cookies.set("loggedIn", this.state.registerUser, { expires: 1 });
             this.setLoginStat(this.state.registerUser);
@@ -74,13 +77,18 @@ class Page extends React.Component {
             log.style.display = "none";
         }
       }
+
+
        login () {
         axios.post('http://localhost:4000/login', {
           username: this.state.loginUser,
           password: this.state.loginpassword, 
         }).then((response) => {
             if(response.data.message){
-            this.setLoginStat(response.data.message)
+            this.setLoginStat(response.data.message);
+            console.log("WHAT");
+            var err = document.getElementById("err");
+            err.style.display = "flex";
           }else{
             Cookies.set("loggedIn", response.data[0][0].value, { expires: 1 });
             this.setLoginStat(response.data[0][0].value);
@@ -92,6 +100,11 @@ class Page extends React.Component {
 
       logout () {
         Cookies.remove("loggedIn");
+        var err1 = document.getElementById("error");
+        var err2 = document.getElementById("err");
+        err1.style.display = "none";
+        err2.style.display = "none";
+
       };
 
     render() {
@@ -101,7 +114,7 @@ class Page extends React.Component {
                 <h1>Tickety</h1><br></br>
 
                 <div id="reg-form" >
-                <h3>Register</h3>
+                <h3 id="labels">Register</h3>
                     <div className="login-form-item pill">
                         <i className="fa-solid fa-envelope"></i>    <input type="email" placeholder="Email" name="Email"onChange={(e)=> {this.setEmail(e.target.value)}}/>
                     </div>
@@ -113,10 +126,12 @@ class Page extends React.Component {
                     </div>
                     <button className="pill" onClick={this.register} >Create Account</button>
                     <button onClick={this.hider} className="pill">Already Have an account?</button>
+                    <div className="pill" id="error" >Invalid Registration!</div>
+
 
                 </div><br></br>
                 <div id="login-form" >
-                <h3>Login</h3>
+                <h3 id="labels">Login</h3>
                     <div className="login-form-item pill">
                         <i className="fa-solid fa-user"></i>  <input type="text" placeholder="Username" name="userName" onChange={(e)=> {this.setLoginUser(e.target.value)}}/>
                     </div>
@@ -125,6 +140,8 @@ class Page extends React.Component {
                     </div>
                     <button onClick={this.login} className="pill">Sign In</button>
                     <button onClick={this.hider} className="pill">New? Sign Up!</button>
+                    <div className="pill" id="err"> Invalid Login!</div>
+
                 </div>
 
                 </div>

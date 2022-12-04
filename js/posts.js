@@ -55,7 +55,7 @@ class Post extends React.Component {
                     name: "Ryan Truong",
                     username: "ryantruong927",
                     date: "10/11/2022",
-                    tag: "Bug",
+                    tags: ["Bug", "Not In Progress"],
                     upvotes: 10,
                     downvotes: 250,
                 },
@@ -66,7 +66,7 @@ class Post extends React.Component {
                     name: "Brian Wrong",
                     username: "ryantruong927",
                     date: "10/11/2022",
-                    tag: "Bug",
+                    tags: ["Bug", "Completed"],
                     upvotes: 235,
                     downvotes: 4,
                 }
@@ -107,7 +107,7 @@ class Post extends React.Component {
 
     addTicket(ticket) {
         ticket.id = this.state.tickets.length
-        this.state.tickets.push(ticket)
+        this.setState({ tickets: [...this.state.tickets, ticket] })
         this.showTicketForm()
         this.forceUpdate()
     }
@@ -139,7 +139,12 @@ class Post extends React.Component {
                 </div>
                 {
                     this.state.isShowingTicketForm &&
-                    <TicketForm onClick={this.addTicket} />
+                    <TicketForm
+                        title=""
+                        description=""
+                        tags={["", "Not In Progress"]}
+                        onClick={this.addTicket}
+                    />
                 }
                 <div id="tickets">
                     {
@@ -153,9 +158,10 @@ class Post extends React.Component {
                                 name={ticket.name}
                                 username={ticket.username}
                                 date={ticket.date}
-                                tag={ticket.tag}
+                                tags={ticket.tags}
                                 upvotes={ticket.upvotes}
                                 downvotes={ticket.downvotes}
+                                onClick={this.showTicketForm}
                             />
                         )
                     }
@@ -169,9 +175,9 @@ class TicketForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            title: "",
-            description: "",
-            tag: "Bug"
+            title: this.props.title,
+            description: this.props.description,
+            tags: this.props.tags
         }
         this.setTitle = this.setTitle.bind(this)
         this.setTag = this.setTag.bind(this)
@@ -183,7 +189,9 @@ class TicketForm extends React.Component {
     }
 
     setTag(tag) {
-        this.setState({ tag: tag });
+        let tags = this.state.tags
+        tags[0] = tag
+        this.setState({ tags: tags })
     }
 
     setDescription(description) {
@@ -206,8 +214,8 @@ class TicketForm extends React.Component {
                     <label htmlFor="ticket-type">Tag</label>
                     <p>Add a tag to help identify the type of ticket</p>
                     <input
-                        type="text" className="pill" id="ticket-tag" placeholder="Add a title" autoComplete="off"
-                        value={this.state.tag}
+                        type="text" className="pill" id="ticket-tag" placeholder="Add a tag (ex. Bug, Issue, Suggestion, etc.)" autoComplete="off"
+                        value={this.state.tags[0]}
                         onChange={e => this.setTag(e.target.value)}
                     />
                 </div>
@@ -231,7 +239,7 @@ class TicketForm extends React.Component {
                             name: "Ryan Truong",
                             username: "ryantruong927",
                             date: "03/12/22",
-                            tag: this.state.tag,
+                            tags: this.state.tags,
                             upvotes: 0,
                             downvotes: 0
                         }
@@ -240,7 +248,7 @@ class TicketForm extends React.Component {
                     }
                     >Add Feedback</button>
                 </div>
-            </div>
+            </div >
         )
     }
 }
