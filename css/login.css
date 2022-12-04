@@ -32,3 +32,17 @@ button:hover {
     flex-direction: column;
     gap: 10px;
 }
+
+#error, #err {
+    display: none;
+    margin-top: 20px;
+    background-color: #e4563d;
+    color: whitesmoke;
+    border: 2px solid darkred;
+    text-align: center;
+    justify-content: center;
+  }
+  #labels{
+    justify-content: center;
+    text-align: center;
+  }
